@@ -1,11 +1,10 @@
 use dioxus::prelude::*;
-use pictogram::Svg;
 
 /// Icon component Props
 #[derive(PartialEq, Props, Clone)]
 pub struct IconProps {
     /// The icon shape to use.
-    pub icon: Svg,
+    pub icon: pictogram::Svg,
     /// The height of the `<svg>` element. Defaults to 20. Pass None to omit.
     #[props(default = Some(20))]
     pub height: Option<u32>,

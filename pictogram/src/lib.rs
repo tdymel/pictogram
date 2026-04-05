@@ -12,6 +12,6 @@ pub use view_box::*;
 macro_rules! svg {
     ($path:path) => {{
         use $path;
-        $crate::zzz__macro_use_svg_icon!($path)
+        pictogram::zzz__macro_use_svg_icon!($path)
     }};
 }

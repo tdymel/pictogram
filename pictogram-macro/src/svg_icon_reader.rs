@@ -53,9 +53,9 @@ impl ToTokens for SvgJson {
         let body = &self.body;
 
         tokens.extend(quote! {
-            $crate::Svg {
+            pictogram::Svg {
                 xmlns: #xmlns,
-                view_box: $crate::ViewBox {
+                view_box: pictogram::ViewBox {
                     min_x: #min_x,
                     min_y: #min_y,
                     width: #width,
