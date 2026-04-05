@@ -25,7 +25,7 @@ impl SvgIconReader for SvgIconInput {
             #[cfg(feature = "bootstrap")]
             "bootstrap" => pictogram_icons_bootstrap::CARGO_MANIFEST_DIR,
             _ => {
-                return Err(Error::IconNotFound(self.source.clone()));
+                return Err(Error::SourceNotInstalled(self.source.clone()));
             }
         };
 

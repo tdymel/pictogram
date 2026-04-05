@@ -1,4 +1,7 @@
+use proc_macro2::Span;
 use syn::{Path, parse::Parse};
+
+use crate::error::Error;
 
 pub struct SvgIconInput {
     pub(crate) name: String,
@@ -14,13 +17,19 @@ impl Parse for SvgIconInput {
         let source = path
             .segments
             .get(num_segments - 3)
-            .unwrap()
+            .ok_or(syn::Error::new(
+                Span::call_site(),
+                Error::IncompleteInputPath,
+            ))?
             .ident
             .to_string();
         let mut name = path
             .segments
             .get(num_segments - 2)
-            .unwrap()
+            .ok_or(syn::Error::new(
+                Span::call_site(),
+                Error::IncompleteInputPath,
+            ))?
             .ident
             .to_string();
         if name.starts_with("_") {
@@ -30,7 +39,10 @@ impl Parse for SvgIconInput {
         let variant = path
             .segments
             .get(num_segments - 1)
-            .unwrap()
+            .ok_or(syn::Error::new(
+                Span::call_site(),
+                Error::IncompleteInputPath,
+            ))?
             .ident
             .to_string();
 
