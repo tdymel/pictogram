@@ -9,7 +9,7 @@ pub trait SvgIconReader {
 impl SvgIconReader for SvgIconInput {
     fn read(&self) -> Result<String, Error> {
         let manifest_dir = match self.source.as_str() {
-            "material" => picto_icons_material::CARGO_MANIFEST_DIR,
+            "material" => pictogram_icons_material::CARGO_MANIFEST_DIR,
             _ => {
                 return Err(Error::IconNotFound(self.source.clone()));
             }

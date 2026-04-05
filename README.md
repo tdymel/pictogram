@@ -1,8 +1,8 @@
-# Picto
+# Pictogram
 A compile time svg icon resolver.
 
 ## How it works
-Picto stores svgs as data in the manifest directory. During compilation an icon is looked up and baked into your application.
+Pictogram stores svgs as data in the manifest directory. During compilation an icon is looked up and baked into your application.
 This bypasses compilation penalties by directly baking the data into code.
 
 ## License

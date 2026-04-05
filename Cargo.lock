@@ -3,22 +3,22 @@
 version = 4
 
 [[package]]
-name = "picto"
+name = "pictogram"
 version = "0.1.0"
 dependencies = [
- "picto-icons-material",
- "picto-macro",
+ "pictogram-icons-material",
+ "pictogram-macro",
 ]
 
 [[package]]
-name = "picto-icons-material"
+name = "pictogram-icons-material"
 version = "0.1.0"
 
 [[package]]
-name = "picto-macro"
+name = "pictogram-macro"
 version = "0.1.0"
 dependencies = [
- "picto-icons-material",
+ "pictogram-icons-material",
  "proc-macro2",
  "quote",
  "syn",

@@ -1,4 +1,4 @@
-# Picto Icons Material
+# Pictogram Icons Material
 Icons from the [material-design-icons](https://github.com/google/material-design-icons).
 
 ## License
