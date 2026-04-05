@@ -1,6 +1,6 @@
 use crate::view_box::ViewBox;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Svg {
     pub xmlns: &'static str,
     pub view_box: ViewBox,

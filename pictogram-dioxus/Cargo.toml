@@ -1,0 +1,12 @@
+[package]
+name = "pictogram-dioxus"
+version = "0.1.2"
+edition = "2024"
+
+[dependencies]
+pictogram = { path = "../pictogram", version = "0.1.2" }
+dioxus = { version = "0.7", default-features = false, features = [
+    "html",
+    "macro",
+    "signals",
+] }

@@ -2,6 +2,7 @@
 resolver = "3"
 members = [
     "pictogram",
+    "pictogram-dioxus",
     "pictogram-icons",
     "pictogram-icons-material",
     "pictogram-macro",
