@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-macro"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "../README.md"

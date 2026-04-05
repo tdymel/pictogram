@@ -5,19 +5,19 @@ version = 4
 [[package]]
 name = "pictogram"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3b17cfcbf765ff08733e8ce21aa3bacded1106268d2e865740f288c3b7daaee"
 dependencies = [
- "pictogram-icons-material 0.1.1",
+ "pictogram-icons-material 0.1.0",
  "pictogram-macro 0.1.0",
 ]
 
 [[package]]
 name = "pictogram"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3b17cfcbf765ff08733e8ce21aa3bacded1106268d2e865740f288c3b7daaee"
+version = "0.1.1"
 dependencies = [
- "pictogram-icons-material 0.1.0",
- "pictogram-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "pictogram-icons-material 0.1.1",
+ "pictogram-macro 0.1.1",
 ]
 
 [[package]]
@@ -33,16 +33,6 @@ version = "0.1.1"
 [[package]]
 name = "pictogram-macro"
 version = "0.1.0"
-dependencies = [
- "pictogram-icons-material 0.1.1",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "pictogram-macro"
-version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d62103778ac197cfd680b745f278f5fafbc6ec5936e8531332edceff6562a74c"
 dependencies = [
@@ -53,10 +43,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-macro"
+version = "0.1.1"
+dependencies = [
+ "pictogram-icons-material 0.1.1",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "playground"
 version = "0.1.0"
 dependencies = [
- "pictogram 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "pictogram 0.1.0",
 ]
 
 [[package]]
