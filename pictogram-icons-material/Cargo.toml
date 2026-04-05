@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-material"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -11,5 +11,6 @@ description = "Material design icons export for pictogram"
 keywords = ["icons", "svg", "dioxus", "leptos"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
+include = ["icons", "src", "Cargo.toml", "LICENSE*", "README.md"]
 
 [dependencies]
