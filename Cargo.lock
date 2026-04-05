@@ -507,7 +507,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "pictogram-icons-material",
  "pictogram-macro",
@@ -515,7 +515,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram-dioxus"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "dioxus",
  "pictogram",
@@ -531,11 +531,11 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-material"
-version = "0.1.6"
+version = "0.1.7"
 
 [[package]]
 name = "pictogram-macro"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "pictogram-icons-material",
  "proc-macro2",

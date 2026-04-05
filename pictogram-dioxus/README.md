@@ -7,6 +7,12 @@ This library provides a convenient interface to create **unstyled** icons using 
 * **Many icons**: Mix and match from any icon libraries that are supported by pictogram.
 
 ## How to use it
+```toml
+[dependencies]
+pictogram = "0.1"
+pictogram_dioxus = "0.1"
+```
+
 ```rust
 rsx! {
     Icon {
