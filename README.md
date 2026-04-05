@@ -10,14 +10,13 @@ This bypasses compilation penalties as the entire icon data does not have to be 
 * **Only pay for what you need**: Only compile the icons, you actually use.
 * **Framework independent**: Although, there is an [adapter for dioxus](https://crates.io/crates/pictogram-dioxus). 
 
-## Supported libraries
-More libraries are going to be added soon.
+## How to use it
+```rust
+let svg = pictogram::svg!(pictogramm::material::action_123::filled);
+println!("{}", svg);
+```
 
-| Library                 | Crate |
-| ----------------------- | ----- |
-| Material design icons   | [pictogram-icons-material](https://crates.io/crates/pictogram-dioxus-material) |
-
-## Dioxus adapter
+### Dioxus adapter
 The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
 
 ```rust
@@ -30,6 +29,13 @@ rsx! {
     }
 }
 ```
+
+## Supported libraries
+More libraries are going to be added soon.
+
+| Library                 | Crate |
+| ----------------------- | ----- |
+| Material design icons   | [pictogram-icons-material](https://crates.io/crates/pictogram-dioxus-material) |
 
 ## License
 This project is licensed under either
