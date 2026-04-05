@@ -11,6 +11,5 @@ description = "Material design icons export for pictogram"
 keywords = ["icons", "svg", "dioxus", "leptos"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
-include = ["icons", "src", "Cargo.toml", "LICENSE*", "README.md"]
 
 [dependencies]
