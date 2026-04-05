@@ -1,5 +1,8 @@
 use crate::view_box::ViewBox;
 
+/// The emitted SVG by the macro!
+/// Right now only xmlns and viewBox are extracted.
+/// The body is just extracted as a whole.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Svg {
     pub xmlns: &'static str,

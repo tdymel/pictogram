@@ -1,9 +1,21 @@
 # Pictogram
-A compile time svg icon resolver.
+Pictogram resolves icons at compile time using data stored in the manifest directory. 
+During compilation an icon is looked up and baked into your application.
+This bypasses compilation penalties as the entire icon data does not have to be compiled by rustc.
 
-## How it works
-Pictogram stores svgs as data in the manifest directory. During compilation an icon is looked up and baked into your application.
-This bypasses compilation penalties by directly baking the data into code.
+## Features
+* **NOT** vibe coded. 
+* **Type-Safe**: If an icon can't be resolved, it will lead to a compilation error.
+* **Compile-Time**: Icons are baked into your code at compile time.
+* **Only pay for what you need**: Only compile the icons, you actually use.
+* **Framework independent**: Although, there is an [adapter for dioxus](https://crates.io/crates/pictogram-dioxus). 
+
+## Supported libraries
+More libraries are going to be added soon.
+
+| Library                 | Crate |
+| ----------------------- | ----- |
+| Material design icons   | [pictogram-icons-material](https://crates.io/crates/pictogram-dioxus-material) |
 
 ## License
 This project is licensed under either

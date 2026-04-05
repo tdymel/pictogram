@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+
 use proc_macro::TokenStream;
 use proc_macro2::Span;
 use quote::ToTokens;
@@ -9,6 +11,7 @@ mod error;
 mod svg_icon_input;
 mod svg_icon_reader;
 
+/// Proc macro used internally by pictogram
 #[proc_macro]
 pub fn svg_icon(input: TokenStream) -> TokenStream {
     match parse_macro_input!(input as SvgIconInput).read() {

@@ -1,3 +1,4 @@
+/// ViewBox auf the SVG
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct ViewBox {
     pub min_x: f32,

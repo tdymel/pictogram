@@ -1,36 +1,40 @@
 use dioxus::prelude::*;
 
-/// Icon component Props
+/// Props for the Icon component
 #[derive(PartialEq, Props, Clone)]
 pub struct IconProps {
-    /// The icon shape to use.
     pub icon: pictogram::Svg,
-    /// The height of the `<svg>` element. Defaults to 20. Pass None to omit.
-    #[props(default = Some(20))]
+    #[props(default = Some(24))]
     pub height: Option<u32>,
-    /// The width of the `<svg>` element. Defaults to 20. Pass None to omit.
-    #[props(default = Some(20))]
+    #[props(default = Some(24))]
     pub width: Option<u32>,
-    /// The color to use for filling the icon. Defaults to "currentColor".
     #[props(default = "currentColor".to_string())]
     pub fill: String,
-    /// An class for the `<svg>` element.
-    #[props(default = "".to_string())]
-    pub class: String,
-    /// The style of the `<svg>` element.
     pub style: Option<String>,
+    #[props(extends = SvgAttributes)]
+    attributes: Vec<Attribute>,
 }
 
-/// Icon component which generates SVG elements
+/// Convenience component
+/// ```rust,no_run
+/// rsx! {
+///     Icon {
+///         icon: pictogram::svg!(pictogramm::material::action_123::filled),
+///         width: 48,
+///         height: 48,
+///     }
+/// }
+/// ```
 #[allow(non_snake_case)]
 pub fn Icon(props: IconProps) -> Element {
     rsx!(svg {
-        class: "{props.class}",
         style: props.style,
-        height: props.height.map(|height| height.to_string()),
-        width: props.width.map(|width| width.to_string()),
-        view_box: "{props.icon.view_box.to_string()}",
-        xmlns: "{props.icon.xmlns}",
-        dangerous_inner_html: "{props.icon.body}"
+        height: props.height.map(|v| v.to_string()),
+        width: props.width.map(|v| v.to_string()),
+        fill: props.fill,
+        view_box: props.icon.view_box.to_string(),
+        xmlns: props.icon.xmlns,
+        dangerous_inner_html: props.icon.body,
+        ..props.attributes,
     })
 }
