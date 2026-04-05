@@ -501,7 +501,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-material",
@@ -510,7 +510,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram-dioxus"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "dioxus",
  "pictogram",
@@ -518,15 +518,15 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-bootstrap"
-version = "0.2.0"
+version = "0.2.1"
 
 [[package]]
 name = "pictogram-icons-material"
-version = "0.2.0"
+version = "0.2.1"
 
 [[package]]
 name = "pictogram-macro"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-material",
@@ -820,7 +820,7 @@ dependencies = [
 
 [[package]]
 name = "warnings-macro"
-version = "0.2.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "59195a1db0e95b920366d949ba5e0d3fc0e70b67c09be15ce5abb790106b0571"
 dependencies = [
