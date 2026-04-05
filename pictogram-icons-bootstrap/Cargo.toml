@@ -8,7 +8,7 @@ repository = "https://github.com/tdymel/pictogram"
 documentation = "https://docs.rs/pictogram"
 license = "MIT OR Apache-2.0"
 description = "Bootstrap icons export for pictogram"
-keywords = ["icons", "svg", "dioxus", "leptos"]
+keywords = ["icons", "svg", "dioxus", "leptos", "bootstrap"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
 

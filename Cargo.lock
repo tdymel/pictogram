@@ -509,6 +509,7 @@ dependencies = [
 name = "pictogram"
 version = "0.1.7"
 dependencies = [
+ "pictogram-icons-bootstrap",
  "pictogram-icons-material",
  "pictogram-macro",
 ]
@@ -541,6 +542,7 @@ version = "0.1.7"
 name = "pictogram-macro"
 version = "0.1.7"
 dependencies = [
+ "pictogram-icons-bootstrap",
  "pictogram-icons-material",
  "proc-macro2",
  "quote",

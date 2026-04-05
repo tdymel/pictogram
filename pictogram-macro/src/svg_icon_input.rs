@@ -17,12 +17,16 @@ impl Parse for SvgIconInput {
             .unwrap()
             .ident
             .to_string();
-        let name = path
+        let mut name = path
             .segments
             .get(num_segments - 2)
             .unwrap()
             .ident
             .to_string();
+        if name.starts_with("_") {
+            name = name[1..].to_owned();
+        }
+
         let variant = path
             .segments
             .get(num_segments - 1)

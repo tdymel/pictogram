@@ -13,6 +13,7 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 
 [dependencies]
 pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.1.7" }
+pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.1.7" }
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }

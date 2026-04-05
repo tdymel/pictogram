@@ -36,6 +36,7 @@ More libraries are going to be added soon.
 | Library                 | Crate |
 | ----------------------- | ----- |
 | Material design icons   | [pictogram-icons-material](https://crates.io/crates/pictogram-dioxus-material) |
+| Bootstrap               | [pictogram-icons-bootstrap](https://crates.io/crates/pictogram-dioxus-bootstrap) |
 
 ## License
 This project is licensed under either

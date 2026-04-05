@@ -21,6 +21,7 @@ impl SvgIconReader for SvgIconInput {
     fn read(&self) -> Result<SvgJson, Error> {
         let manifest_dir = match self.source.as_str() {
             "material" => pictogram_icons_material::CARGO_MANIFEST_DIR,
+            "bootstrap" => pictogram_icons_bootstrap::CARGO_MANIFEST_DIR,
             _ => {
                 return Err(Error::IconNotFound(self.source.clone()));
             }

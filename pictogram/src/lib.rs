@@ -9,6 +9,9 @@ pub use pictogram_macro::svg_icon as zzz__macro_use_svg_icon;
 /// Index to lookup available icons from material
 pub use pictogram_icons_material::index as material;
 
+/// Index to lookup available icons from bootstrap
+pub use pictogram_icons_bootstrap::index as bootstrap;
+
 pub use svg::*;
 pub use view_box::*;
 
