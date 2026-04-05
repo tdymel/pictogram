@@ -1,5 +1,5 @@
 # Pictogram Macro
-Svg resolver macro for [picto](https://crates.io/crates/pictogram).
+Svg resolver macro for [pictogram](https://crates.io/crates/pictogram).
 
 ## License
 This project is licensed under either
