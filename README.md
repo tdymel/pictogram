@@ -16,7 +16,7 @@ This bypasses compilation penalties as the entire icon data does not have to be 
 pictogram = { version = "0.1", features=["material"] }
 ```
 ```rust
-let svg = pictogram::svg!(pictogramm::material::action_123::filled);
+let svg = pictogram::svg!(pictogram::material::action_123::filled);
 println!("{}", svg);
 ```
 
@@ -26,7 +26,7 @@ The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
 ```rust
 rsx! {
     Icon {
-        icon: pictogram::svg!(pictogramm::material::action_123::filled),
+        icon: pictogram::svg!(pictogram::material::action_123::filled),
         width: 48,
         height: 48,
         ... other attributes of your liking ...

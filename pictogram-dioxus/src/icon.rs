@@ -19,7 +19,7 @@ pub struct IconProps {
 /// ```rust,no_run
 /// rsx! {
 ///     Icon {
-///         icon: pictogram::svg!(pictogramm::material::action_123::filled),
+///         icon: pictogram::svg!(pictogram::material::action_123::filled),
 ///         width: 48,
 ///         height: 48,
 ///     }

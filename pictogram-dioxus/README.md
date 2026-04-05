@@ -17,7 +17,7 @@ pictogram_dioxus = "0.1"
 ```rust
 rsx! {
     Icon {
-        icon: pictogram::svg!(pictogramm::material::action_123::filled),
+        icon: pictogram::svg!(pictogram::material::action_123::filled),
         width: 48,
         height: 48,
         ... other attributes of your liking ...
