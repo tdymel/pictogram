@@ -13,7 +13,7 @@ This bypasses compilation penalties as the entire icon data does not have to be 
 ## How to use it
 ```toml
 # By default all features are enabled
-pictogram = { version = "0.1", features=["material"] }
+pictogram = { version = "*", features=["material"] }
 ```
 ```rust
 let svg = pictogram::svg!(pictogram::material::action_123::filled);
