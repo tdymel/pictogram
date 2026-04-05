@@ -14,6 +14,22 @@ impl Parse for SvgIconInput {
         let path = input.parse::<Path>()?;
         let num_segments = path.segments.len();
 
+        if num_segments > 0
+            && path
+                .segments
+                .get(0)
+                .unwrap()
+                .ident
+                .to_string()
+                .starts_with("pictogram")
+            && num_segments < 4
+        {
+            return Err(syn::Error::new(
+                Span::call_site(),
+                Error::IncompleteInputPath,
+            ));
+        }
+
         let source = path
             .segments
             .get(num_segments - 3)
