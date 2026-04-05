@@ -2,6 +2,15 @@
 name = "pictogram-dioxus"
 version = "0.1.2"
 edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "../README.md"
+repository = "https://github.com/tdymel/pictogram"
+documentation = "https://docs.rs/pictogram"
+license = "MIT OR Apache-2.0"
+description = "A compile time svg icon resolver. Adapter for dioxus."
+keywords = ["icons", "svg", "dioxus"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+exclude = ["tests"]
 
 [dependencies]
 pictogram = { path = "../pictogram", version = "0.1.2" }
