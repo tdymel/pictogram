@@ -17,8 +17,7 @@ pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
+roxmltree = "0.21"
 
 [lib]
 proc-macro = true
