@@ -20,7 +20,9 @@ pub struct SvgJson {
 impl SvgIconReader for SvgIconInput {
     fn read(&self) -> Result<SvgJson, Error> {
         let manifest_dir = match self.source.as_str() {
+            #[cfg(feature = "material")]
             "material" => pictogram_icons_material::CARGO_MANIFEST_DIR,
+            #[cfg(feature = "bootstrap")]
             "bootstrap" => pictogram_icons_bootstrap::CARGO_MANIFEST_DIR,
             _ => {
                 return Err(Error::IconNotFound(self.source.clone()));

@@ -14,5 +14,10 @@ exclude = ["tests"]
 
 [dependencies]
 pictogram-macro = { path = "../pictogram-macro", version = "0.1.7" }
-pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.1.7"}
-pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.1.7" }
+pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.1.7", optional = true, default-features = false }
+pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.1.7", optional = true, default-features = false }
+
+[features]
+default = ["material", "bootstrap"]
+material = ["dep:pictogram-icons-material", "pictogram-macro/material"]
+bootstrap = ["dep:pictogram-icons-bootstrap", "pictogram-macro/bootstrap"]
