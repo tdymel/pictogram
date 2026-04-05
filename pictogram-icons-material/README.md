@@ -1,5 +1,5 @@
 # Pictogram Icons Material
-Icons from the [material-design-icons](https://github.com/google/material-design-icons).
+Icons from [material-design-icons](https://github.com/google/material-design-icons).
 
 ## License
 * Code is MIT or Apache-2.0

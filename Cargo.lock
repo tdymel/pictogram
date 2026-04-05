@@ -530,6 +530,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-bootstrap"
+version = "0.1.7"
+
+[[package]]
 name = "pictogram-icons-material"
 version = "0.1.7"
 
