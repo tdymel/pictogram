@@ -17,6 +17,20 @@ More libraries are going to be added soon.
 | ----------------------- | ----- |
 | Material design icons   | [pictogram-icons-material](https://crates.io/crates/pictogram-dioxus-material) |
 
+## Dioxus adapter
+The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
+
+```rust
+rsx! {
+    Icon {
+        icon: pictogram::svg!(pictogramm::material::action_123::filled),
+        width: 48,
+        height: 48,
+        ... other attributes of your liking ...
+    }
+}
+```
+
 ## License
 This project is licensed under either
 
