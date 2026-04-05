@@ -9,7 +9,8 @@ This library provides a convenient interface to create **unstyled** icons using 
 ## How to use it
 ```toml
 [dependencies]
-pictogram = "0.1"
+# By default all features are enabled
+pictogram = { version = "0.1", features=["material"] }
 pictogram_dioxus = "0.1"
 ```
 

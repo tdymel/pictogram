@@ -11,6 +11,10 @@ This bypasses compilation penalties as the entire icon data does not have to be 
 * **Framework independent**: Although, there is an [adapter for dioxus](https://crates.io/crates/pictogram-dioxus). 
 
 ## How to use it
+```toml
+# By default all features are enabled
+pictogram = { version = "0.1", features=["material"] }
+```
 ```rust
 let svg = pictogram::svg!(pictogramm::material::action_123::filled);
 println!("{}", svg);
