@@ -1,5 +1,5 @@
 use roxmltree::Document;
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 use std::{env, fs, path::Path};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {

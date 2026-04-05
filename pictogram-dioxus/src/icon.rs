@@ -25,15 +25,13 @@ pub struct IconProps {
 /// Icon component which generates SVG elements
 #[allow(non_snake_case)]
 pub fn Icon(props: IconProps) -> Element {
-    rsx!(
-        svg {
-            class: "{props.class}",
-            style: props.style,
-            height: props.height.map(|height| height.to_string()),
-            width: props.width.map(|width| width.to_string()),
-            view_box: "{props.icon.view_box.to_string()}",
-            xmlns: "{props.icon.xmlns}",
-            dangerous_inner_html: "{props.icon.body}"
-        }
-    )
+    rsx!(svg {
+        class: "{props.class}",
+        style: props.style,
+        height: props.height.map(|height| height.to_string()),
+        width: props.width.map(|width| width.to_string()),
+        view_box: "{props.icon.view_box.to_string()}",
+        xmlns: "{props.icon.xmlns}",
+        dangerous_inner_html: "{props.icon.body}"
+    })
 }
