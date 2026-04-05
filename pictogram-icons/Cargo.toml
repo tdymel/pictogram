@@ -1,0 +1,9 @@
+[package]
+name = "pictogram-icons"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+roxmltree = "0.21"
+serde_json = "1"

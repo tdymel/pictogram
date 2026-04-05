@@ -13,10 +13,11 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 
 [dependencies]
 pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.1.1" }
-
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 
 [lib]
 proc-macro = true

@@ -1,3 +1,8 @@
 [workspace]
 resolver = "3"
-members = ["pictogram", "pictogram-icons-material", "pictogram-macro"]
+members = [
+    "pictogram",
+    "pictogram-icons",
+    "pictogram-icons-material",
+    "pictogram-macro",
+]
