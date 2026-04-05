@@ -1,0 +1,15 @@
+[package]
+name = "picto-icons-material"
+version = "0.1.0"
+edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "README.md"
+repository = "https://github.com/tdymel/picto"
+documentation = "https://docs.rs/picto"
+license = "MIT OR Apache-2.0"
+description = "Material design icons export for picto"
+keywords = ["icons", "svg", "dioxus", "leptos"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+exclude = ["scraper"]
+
+[dependencies]

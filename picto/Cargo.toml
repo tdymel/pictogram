@@ -1,0 +1,17 @@
+[package]
+name = "picto"
+version = "0.1.0"
+edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "../README.md"
+repository = "https://github.com/tdymel/picto"
+documentation = "https://docs.rs/picto"
+license = "MIT OR Apache-2.0"
+description = "A compile time svg icon resolver."
+keywords = ["icons", "svg", "dioxus", "leptos"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+exclude = ["tests"]
+
+[dependencies]
+picto-macro = { path = "../picto-macro", version = "0.1" }
+picto-icons-material = { path = "../picto-icons-material", version = "0.1"}
