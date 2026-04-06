@@ -25,6 +25,24 @@ rsx! {
 }
 ```
 
+### Combining components
+```rust
+rsx! {
+    Icon {
+        icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
+        height: 48,
+        width: 48,
+        Icon {
+            icon: pictogram::svg!(pictogram::material::social_person::filled),
+            height: 16,
+            width: 16,
+            x: 4,
+            y: 4
+        }
+    }
+}
+```
+
 ## License
 This project is licensed under either
 
