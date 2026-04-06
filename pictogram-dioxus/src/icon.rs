@@ -13,6 +13,7 @@ pub struct IconProps {
     pub style: Option<String>,
     #[props(extends = SvgAttributes)]
     attributes: Vec<Attribute>,
+    children: Option<Element>,
 }
 
 /// Convenience component
@@ -34,7 +35,9 @@ pub fn Icon(props: IconProps) -> Element {
         fill: props.fill,
         view_box: props.icon.view_box.to_string(),
         xmlns: props.icon.xmlns,
+        "aria-hidden": "true",
         dangerous_inner_html: props.icon.body,
         ..props.attributes,
+        {props.children}
     })
 }
