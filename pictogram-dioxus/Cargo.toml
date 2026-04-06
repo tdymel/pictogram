@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-dioxus"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -13,10 +13,11 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["tests"]
 
 [dependencies]
-pictogram = { path = "../pictogram", version = "0.2.1" }
+pictogram = { path = "../pictogram", version = "0.2.2" }
 dioxus = { version = "0.7", default-features = false, features = [
     "html",
     "macro",
     "signals",
     "hooks"
 ] }
+paste = "1"

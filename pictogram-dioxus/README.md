@@ -43,6 +43,22 @@ rsx! {
 }
 ```
 
+### Define dedicated icon components
+```rust
+define_icon!(pictogram::material::image_crop_free::outlined);
+
+#[component]
+fn SomeComponent() -> Element {
+    rsx! {
+        ImageCropFreeOutlined {
+          height: 48,
+          width: 48
+        }
+    }
+}
+
+```
+
 ### Provide global styling
 ```rust
 IconProvider {

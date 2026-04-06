@@ -1,6 +1,6 @@
 [package]
 name = "pictogram"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "../README.md"
@@ -13,9 +13,9 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["tests"]
 
 [dependencies]
-pictogram-macro = { path = "../pictogram-macro", version = "0.2.1" }
-pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.1", optional = true, default-features = false }
-pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.1", optional = true, default-features = false }
+pictogram-macro = { path = "../pictogram-macro", version = "0.2.2" }
+pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.2", optional = true, default-features = false }
+pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.2", optional = true, default-features = false }
 
 [features]
 default = ["material", "bootstrap"]
