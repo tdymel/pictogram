@@ -5,7 +5,7 @@ use crate::provider::DefaultProps;
 /// Props for the Icon component
 #[derive(PartialEq, Props, Clone)]
 pub struct IconProps {
-    pub icon: pictogram::Svg,
+    pub icon: pictogram::Svg<'static>,
     pub style: Option<String>,
     #[props(extends = SvgAttributes)]
     attributes: Vec<Attribute>,
