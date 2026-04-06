@@ -43,6 +43,18 @@ rsx! {
 }
 ```
 
+### Provide global styling
+```rust
+IconProvider {
+    height: 48,
+    width: 48,
+    fill: "blue",
+    Icon {
+        icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
+    }
+}
+```
+
 ## License
 This project is licensed under either
 

@@ -121,6 +121,7 @@ dependencies = [
  "dioxus-config-macros",
  "dioxus-core",
  "dioxus-core-macro",
+ "dioxus-hooks",
  "dioxus-html",
  "dioxus-signals",
  "dioxus-stores",

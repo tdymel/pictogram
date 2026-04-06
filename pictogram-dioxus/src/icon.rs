@@ -1,15 +1,11 @@
 use dioxus::prelude::*;
 
+use crate::provider::IconProviderProps;
+
 /// Props for the Icon component
 #[derive(PartialEq, Props, Clone)]
 pub struct IconProps {
     pub icon: pictogram::Svg,
-    #[props(default = Some(24))]
-    pub height: Option<u32>,
-    #[props(default = Some(24))]
-    pub width: Option<u32>,
-    #[props(default = "currentColor".to_string())]
-    pub fill: String,
     pub style: Option<String>,
     #[props(extends = SvgAttributes)]
     attributes: Vec<Attribute>,
@@ -28,15 +24,17 @@ pub struct IconProps {
 /// ```
 #[allow(non_snake_case)]
 pub fn Icon(props: IconProps) -> Element {
+    let context: IconProviderProps = try_use_context::<IconProviderProps>().unwrap_or_default();
     rsx!(svg {
-        style: props.style,
-        height: props.height.map(|v| v.to_string()),
-        width: props.width.map(|v| v.to_string()),
-        fill: props.fill,
+        style: props.style.or(context.style),
+        height: context.height.map(|v| v.to_string()),
+        width: context.width.map(|v| v.to_string()),
+        fill: context.fill,
         view_box: props.icon.view_box.to_string(),
         xmlns: props.icon.xmlns,
         "aria-hidden": "true",
         dangerous_inner_html: props.icon.body,
+        ..context.attributes,
         ..props.attributes,
         {props.children}
     })
