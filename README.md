@@ -15,7 +15,7 @@ This bypasses compilation penalties as the entire icon data does not have to be 
 # By default all features are enabled
 pictogram = { version = "*", features=["material"] }
 ```
-```rust
+```rust,ignore
 let svg = pictogram::svg!(pictogram::material::action_123::filled);
 println!("{}", svg);
 ```
@@ -23,7 +23,7 @@ println!("{}", svg);
 ### Dioxus adapter
 The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
 
-```rust
+```rust,ignore
 rsx! {
     Icon {
         icon: pictogram::svg!(pictogram::material::action_123::filled),

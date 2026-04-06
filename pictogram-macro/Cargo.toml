@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-macro"
-version = "0.2.4"
+version = "0.2.5"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -12,9 +12,9 @@ keywords = ["icons", "svg", "dioxus", "leptos"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 
 [dependencies]
-pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.4", optional = true, default-features = false }
-pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.4", optional = true, default-features = false }
-pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.2.4", optional = true, default-features = false }
+pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.2.5", optional = true, default-features = false }
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }

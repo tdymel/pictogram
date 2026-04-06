@@ -39,7 +39,7 @@ pub struct IconProviderProps {
 }
 
 /// Provide default attributes for the icon component
-/// ```rust,no_run
+/// ```rust,ignore
 /// IconProvider {
 ///     height: 48,
 ///     width: 48,

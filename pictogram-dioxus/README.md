@@ -14,7 +14,7 @@ pictogram = { version = "*", features=["material"] }
 pictogram_dioxus = "*"
 ```
 
-```rust
+```rust,ignore
 rsx! {
     Icon {
         icon: pictogram::svg!(pictogram::material::action_123::filled),
@@ -26,7 +26,7 @@ rsx! {
 ```
 
 ### Combining components
-```rust
+```rust,ignore
 rsx! {
     Icon {
         icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
@@ -44,7 +44,9 @@ rsx! {
 ```
 
 ### Define dedicated icon components
-```rust
+Best used by defining all icons in a separate `icons.rs` file.
+
+```rust,ignore
 define_icon!(pictogram::material::image_crop_free::outlined);
 
 #[component]
@@ -56,11 +58,13 @@ fn SomeComponent() -> Element {
         }
     }
 }
-
 ```
 
+**Question**: Why dont I provide all icons predefined?
+**Answer**: It increases the compile times significantly
+
 ### Provide global styling
-```rust
+```rust,ignore
 IconProvider {
     height: 48,
     width: 48,

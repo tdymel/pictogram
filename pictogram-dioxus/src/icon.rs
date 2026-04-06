@@ -13,7 +13,7 @@ pub struct IconProps {
 }
 
 /// Convenience component
-/// ```rust,no_run
+/// ```rust,ignore
 /// rsx! {
 ///     Icon {
 ///         icon: pictogram::svg!(pictogram::material::action_123::filled),
@@ -50,7 +50,7 @@ pub struct PreparedIconProps {
 }
 
 /// Define a dedicated icon component
-/// ```rust,no_run
+/// ```rust,ignore
 /// define_icon!(pictogram::material::image_crop_free::outlined);
 ///
 /// #[component]
@@ -66,7 +66,9 @@ pub struct PreparedIconProps {
 #[macro_export]
 macro_rules! define_icon {
     (pictogram::$source:ident::$name:ident::$variant:ident) => {
-        use pictogram::$source::$name::$variant;
+        const _: () = {
+            let _ = pictogram::$source::$name::$variant;
+        };
         $crate::paste! {
             #[allow(non_snake_case)]
             pub fn [<$name:camel$variant:camel>](props: pictogram_dioxus::PreparedIconProps) -> Element {

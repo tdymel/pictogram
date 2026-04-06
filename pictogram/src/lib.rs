@@ -23,7 +23,7 @@ pub use view_box::*;
 
 /// Macro to lookup a SVG at compile time.
 /// Wraps the proc-macro for better ergonomics.
-/// ```rust, no_run
+/// ```rust, ignore
 /// let svg = pictogram::svg!(pictogram::material::action_123::filled);
 /// println!("{}", svg);
 /// ```

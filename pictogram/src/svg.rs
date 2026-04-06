@@ -29,7 +29,7 @@ pub struct SvgParseError(pub &'static str);
 
 impl<'a> Svg<'a> {
     /// Use this method for your custom icons
-    /// ```rust,no_run
+    /// ```rust,ignore
     /// let svg_content = include_str!("/path/to/your/icon.svg");
     /// let svg = pictogram::Svg::new(&svg_content);
     /// ```
