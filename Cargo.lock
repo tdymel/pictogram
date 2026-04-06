@@ -508,16 +508,17 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 
 [[package]]
 name = "pictogram"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "pictogram-icons-bootstrap",
+ "pictogram-icons-feather",
  "pictogram-icons-material",
  "pictogram-macro",
 ]
 
 [[package]]
 name = "pictogram-dioxus"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "dioxus",
  "paste",
@@ -526,17 +527,22 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-bootstrap"
-version = "0.2.3"
+version = "0.2.4"
+
+[[package]]
+name = "pictogram-icons-feather"
+version = "0.2.4"
 
 [[package]]
 name = "pictogram-icons-material"
-version = "0.2.3"
+version = "0.2.4"
 
 [[package]]
 name = "pictogram-macro"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "pictogram-icons-bootstrap",
+ "pictogram-icons-feather",
  "pictogram-icons-material",
  "proc-macro2",
  "quote",

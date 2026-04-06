@@ -14,6 +14,10 @@ pub use pictogram_icons_material::index as material;
 #[cfg(feature = "bootstrap")]
 pub use pictogram_icons_bootstrap::index as bootstrap;
 
+/// Index to lookup available icons from feather
+#[cfg(feature = "feather")]
+pub use pictogram_icons_feather::index as feather;
+
 pub use svg::*;
 pub use view_box::*;
 

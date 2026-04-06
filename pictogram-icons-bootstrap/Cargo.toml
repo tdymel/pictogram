@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-bootstrap"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"

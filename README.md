@@ -41,6 +41,7 @@ More libraries are going to be added soon.
 | ----------------------- | --------- | ----- |
 | Material design icons   | material  | [pictogram-icons-material](https://crates.io/crates/pictogram-icons-material) |
 | Bootstrap               | bootstrap | [pictogram-icons-bootstrap](https://crates.io/crates/pictogram-icons-bootstrap) |
+| Feather                 | feather   | [pictogram-icons-feather](https://crates.io/crates/pictogram-icons-feather) |
 
 ## License
 This project is licensed under either
