@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::provider::IconProviderProps;
+use crate::provider::DefaultProps;
 
 /// Props for the Icon component
 #[derive(PartialEq, Props, Clone)]
@@ -24,7 +24,7 @@ pub struct IconProps {
 /// ```
 #[allow(non_snake_case)]
 pub fn Icon(props: IconProps) -> Element {
-    let context: IconProviderProps = try_use_context::<IconProviderProps>().unwrap_or_default();
+    let context: DefaultProps = try_use_context::<DefaultProps>().unwrap_or_default();
     rsx!(svg {
         style: props.style.or(context.style),
         height: context.height.map(|v| v.to_string()),
