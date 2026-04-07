@@ -526,16 +526,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons"
+version = "0.2.5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+]
+
+[[package]]
 name = "pictogram-icons-bootstrap"
 version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
 
 [[package]]
 name = "pictogram-icons-feather"
 version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
 
 [[package]]
 name = "pictogram-icons-material"
 version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
 
 [[package]]
 name = "pictogram-macro"

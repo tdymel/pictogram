@@ -1,7 +1,11 @@
 #![doc = include_str!("../README.md")]
 
 /// Exports the index of the available icons
-pub mod index;
+pub mod index {
+    #![allow(non_upper_case_globals)]
+
+    pictogram_icons::generate_index!();
+}
 
 /// Exports the manifest directory for the proc-macro
 pub const CARGO_MANIFEST_DIR: &str = env!("CARGO_MANIFEST_DIR");

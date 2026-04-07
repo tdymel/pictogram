@@ -13,3 +13,4 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
 
 [dependencies]
+pictogram-icons = { path = "../pictogram-icons", version = "0.2.5" }

@@ -1,5 +1,5 @@
 [package]
-name = "pictogram-icons-feather"
+name = "pictogram-icons"
 version = "0.2.5"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
@@ -8,9 +8,12 @@ repository = "https://github.com/tdymel/pictogram"
 documentation = "https://docs.rs/pictogram"
 license = "MIT OR Apache-2.0"
 description = "Feather design icons export for pictogram"
-keywords = ["icons", "svg", "dioxus", "leptos", "feather"]
+keywords = ["icons", "svg", "dioxus", "leptos"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
-exclude = ["scraper"]
 
 [dependencies]
-pictogram-icons = { path = "../pictogram-icons", version = "0.2.5" }
+proc-macro2 = "1"
+quote = "1"
+
+[lib]
+proc-macro = true
