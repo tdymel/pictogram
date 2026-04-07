@@ -48,13 +48,18 @@ Best used by defining all icons in a separate `icons.rs` file.
 
 ```rust,ignore
 define_icon!(pictogram::material::image_crop_free::outlined);
+define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
 
 #[component]
 fn SomeComponent() -> Element {
     rsx! {
         ImageCropFreeOutlined {
-          height: 48,
-          width: 48
+            height: 48,
+            width: 48
+        }
+        CustomIcon {
+            height: 48,
+            width: 48
         }
     }
 }

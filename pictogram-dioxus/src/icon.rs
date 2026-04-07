@@ -52,6 +52,7 @@ pub struct PreparedIconProps {
 /// Define a dedicated icon component
 /// ```rust,ignore
 /// define_icon!(pictogram::material::image_crop_free::outlined);
+/// define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
 ///
 /// #[component]
 /// fn SomeComponent() -> Element {
@@ -60,11 +61,34 @@ pub struct PreparedIconProps {
 ///           height: 48,
 ///           width: 48
 ///         }
+///         CustomIcon {
+///           height: 48,
+///           width: 48
+///         }
 ///     }
 /// }
 /// ```
 #[macro_export]
 macro_rules! define_icon {
+    ($name:ident, $path:literal) => {
+        #[allow(non_snake_case)]
+        pub fn $name(props: pictogram_dioxus::PreparedIconProps) -> Element {
+            let pictogram_dioxus::PreparedIconProps {
+                style,
+                children,
+                attributes,
+            } = props;
+
+            dioxus::prelude::rsx! {
+                pictogram_dioxus::Icon {
+                    icon: pictogram::svg!($path),
+                    style: style,
+                    attributes: attributes,
+                    {children}
+                }
+            }
+        }
+    };
     (pictogram::$source:ident::$name:ident::$variant:ident) => {
         const _: () = {
             let _ = pictogram::$source::$name::$variant;
