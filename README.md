@@ -36,8 +36,8 @@ fn SomeComponent() -> Element {
       // Or use the general component
       Icon {
           icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
-          width: 48,
-          height: 48,
+          width: "3rem",
+          height: "3rem",
           // Compose icons
           SocialPersonFilled {
             height: 16,
@@ -47,8 +47,8 @@ fn SomeComponent() -> Element {
         }
       }
       CustomIcon {
-        width: 48,
-        height: 48
+        width: "3rem",
+        height: "3rem"
       }
   }
 }

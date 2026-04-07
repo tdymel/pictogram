@@ -18,8 +18,8 @@ pictogram_dioxus = "*"
 rsx! {
     Icon {
         icon: pictogram::svg!(pictogram::material::action_123::filled),
-        width: 48,
-        height: 48,
+        width: "3rem",
+        height: "3rem",
         ... other attributes of your liking ...
     }
 }
@@ -30,8 +30,8 @@ rsx! {
 rsx! {
     Icon {
         icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
-        height: 48,
-        width: 48,
+        height: "3rem",
+        width: "3rem",
         Icon {
             icon: pictogram::svg!(pictogram::material::social_person::filled),
             height: 16,
@@ -54,12 +54,12 @@ define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
 fn SomeComponent() -> Element {
     rsx! {
         ImageCropFreeOutlined {
-            height: 48,
-            width: 48
+            height: "3rem",
+            width: "3rem"
         }
         CustomIcon {
-            height: 48,
-            width: 48
+            height: "3rem",
+            width: "3rem"
         }
     }
 }
@@ -71,8 +71,8 @@ fn SomeComponent() -> Element {
 ### Provide global styling
 ```rust,ignore
 IconProvider {
-    height: 48,
-    width: 48,
+    height: "3rem",
+    width: "3rem",
     fill: "blue",
     Icon {
         icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
