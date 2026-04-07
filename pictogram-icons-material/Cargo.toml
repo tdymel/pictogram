@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-material"
-version = "0.2.5"
+version = "0.3.0"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -13,4 +13,4 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
 
 [dependencies]
-pictogram-icons = { path = "../pictogram-icons", version = "0.2.5" }
+pictogram-icons = { path = "../pictogram-icons", version = "0.3.0" }

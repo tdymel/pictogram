@@ -1,6 +1,6 @@
 [package]
 name = "pictogram"
-version = "0.2.5"
+version = "0.3.0"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "../README.md"
@@ -13,18 +13,18 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["tests"]
 
 [dependencies]
-pictogram-macro = { path = "../pictogram-macro", version = "0.2.5" }
-pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.2.5", optional = true, default-features = false }
-pictogram-icons-vscode = { path = "../pictogram-icons-vscode", version = "0.2.5", optional = true, default-features = false }
+pictogram-macro = { path = "../pictogram-macro", version = "0.3.0" }
+pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.3.0", optional = true, default-features = false }
+pictogram-icons-vscode = { path = "../pictogram-icons-vscode", version = "0.3.0", optional = true, default-features = false }
 
 [features]
 default = [
