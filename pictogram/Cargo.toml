@@ -17,9 +17,11 @@ pictogram-macro = { path = "../pictogram-macro", version = "0.2.5" }
 pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.2.5", optional = true, default-features = false }
 
 [features]
-default = ["material", "bootstrap", "feather"]
+default = ["material", "bootstrap", "feather", "font-awesome"]
 material = ["dep:pictogram-icons-material", "pictogram-macro/material"]
 bootstrap = ["dep:pictogram-icons-bootstrap", "pictogram-macro/bootstrap"]
 feather = ["dep:pictogram-icons-feather", "pictogram-macro/feather"]
+font-awesome = ["dep:pictogram-icons-font-awesome", "pictogram-macro/font-awesome"]

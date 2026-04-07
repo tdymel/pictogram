@@ -5,7 +5,7 @@ members = [
     "pictogram-dioxus",
     "pictogram-icons",
     "pictogram-icons-bootstrap",
-    "pictogram-icons-feather",
+    "pictogram-icons-feather", "pictogram-icons-font-awesome",
     "pictogram-icons-material",
     "pictogram-macro",
 ]

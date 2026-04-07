@@ -70,25 +70,6 @@ pub struct PreparedIconProps {
 /// ```
 #[macro_export]
 macro_rules! define_icon {
-    ($name:ident, $path:literal) => {
-        #[allow(non_snake_case)]
-        pub fn $name(props: pictogram_dioxus::PreparedIconProps) -> Element {
-            let pictogram_dioxus::PreparedIconProps {
-                style,
-                children,
-                attributes,
-            } = props;
-
-            dioxus::prelude::rsx! {
-                pictogram_dioxus::Icon {
-                    icon: pictogram::svg!($path),
-                    style: style,
-                    attributes: attributes,
-                    {children}
-                }
-            }
-        }
-    };
     (pictogram::$source:ident::$name:ident::$variant:ident) => {
         const _: () = {
             let _ = pictogram::$source::$name::$variant;
@@ -109,6 +90,25 @@ macro_rules! define_icon {
                         attributes: attributes,
                         {children}
                     }
+                }
+            }
+        }
+    };
+    ($name:ident, $path:literal) => {
+        #[allow(non_snake_case)]
+        pub fn $name(props: pictogram_dioxus::PreparedIconProps) -> Element {
+            let pictogram_dioxus::PreparedIconProps {
+                style,
+                children,
+                attributes,
+            } = props;
+
+            dioxus::prelude::rsx! {
+                pictogram_dioxus::Icon {
+                    icon: pictogram::svg!($path),
+                    style: style,
+                    attributes: attributes,
+                    {children}
                 }
             }
         }

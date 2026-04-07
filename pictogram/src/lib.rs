@@ -18,6 +18,10 @@ pub use pictogram_icons_bootstrap::index as bootstrap;
 #[cfg(feature = "feather")]
 pub use pictogram_icons_feather::index as feather;
 
+/// Index to lookup available icons from feather
+#[cfg(feature = "font-awesome")]
+pub use pictogram_icons_font_awesome::index as font_awesome;
+
 pub use svg::*;
 pub use view_box::*;
 
@@ -34,11 +38,11 @@ pub use view_box::*;
 /// ```
 #[macro_export]
 macro_rules! svg {
-    ($path:literal) => {{ $crate::Svg::new(include_str!($path)).unwrap() }};
     ($path:path) => {{
         const _: () = {
             let _ = $path;
         };
         $crate::zzz__macro_use_svg_icon!($path)
     }};
+    ($path:literal) => {{ $crate::Svg::new(include_str!($path)).unwrap() }};
 }

@@ -512,6 +512,7 @@ version = "0.2.5"
 dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
+ "pictogram-icons-font-awesome",
  "pictogram-icons-material",
  "pictogram-macro",
 ]
@@ -548,6 +549,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-font-awesome"
+version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
+
+[[package]]
 name = "pictogram-icons-material"
 version = "0.2.5"
 dependencies = [
@@ -560,6 +568,7 @@ version = "0.2.5"
 dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
+ "pictogram-icons-font-awesome",
  "pictogram-icons-material",
  "proc-macro2",
  "quote",

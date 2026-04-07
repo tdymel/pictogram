@@ -56,11 +56,12 @@ fn SomeComponent() -> Element {
 ## Supported libraries
 More libraries are going to be added soon.
 
-| Library                 | Feature   | Crate |
-| ----------------------- | --------- | ----- |
-| Material design icons   | material  | [pictogram-icons-material](https://crates.io/crates/pictogram-icons-material) |
-| Bootstrap               | bootstrap | [pictogram-icons-bootstrap](https://crates.io/crates/pictogram-icons-bootstrap) |
-| Feather                 | feather   | [pictogram-icons-feather](https://crates.io/crates/pictogram-icons-feather) |
+| Library                 | Feature      | License    | Crate |
+| ----------------------- | ------------ | ---------- | ----- |
+| Material design icons   | material     | Apache-2.0 | [material](https://crates.io/crates/pictogram-icons-material) |
+| Bootstrap               | bootstrap    | MIT        | [bootstrap](https://crates.io/crates/pictogram-icons-bootstrap) |
+| Feather                 | feather      | MIT        | [feather](https://crates.io/crates/pictogram-icons-feather) |
+| Font Awesome            | font-awesome | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
 
 ## License
 This project is licensed under either
