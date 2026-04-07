@@ -517,6 +517,7 @@ dependencies = [
  "pictogram-icons-ion",
  "pictogram-icons-lucide",
  "pictogram-icons-material",
+ "pictogram-icons-oct",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",
  "pictogram-macro",
@@ -589,6 +590,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-oct"
+version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
+
+[[package]]
 name = "pictogram-icons-simple"
 version = "0.2.5"
 dependencies = [
@@ -613,6 +621,7 @@ dependencies = [
  "pictogram-icons-ion",
  "pictogram-icons-lucide",
  "pictogram-icons-material",
+ "pictogram-icons-oct",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",
  "proc-macro2",

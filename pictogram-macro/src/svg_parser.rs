@@ -33,6 +33,8 @@ fn parse_svg(input: &SvgInput) -> Result<Svg, Error> {
         "ion" => pictogram_icons_ion::CARGO_MANIFEST_DIR,
         #[cfg(feature = "lucide")]
         "lucide" => pictogram_icons_lucide::CARGO_MANIFEST_DIR,
+        #[cfg(feature = "oct")]
+        "oct" => pictogram_icons_oct::CARGO_MANIFEST_DIR,
         _ => return Err(Error::SourceNotInstalled(input.source.clone())),
     };
 

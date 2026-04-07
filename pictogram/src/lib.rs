@@ -42,6 +42,10 @@ pub use pictogram_icons_ion::index as ion;
 #[cfg(feature = "lucide")]
 pub use pictogram_icons_lucide::index as lucide;
 
+/// Index to lookup available icons from oct
+#[cfg(feature = "oct")]
+pub use pictogram_icons_oct::index as oct;
+
 pub use svg::*;
 pub use view_box::*;
 

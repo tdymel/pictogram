@@ -55,7 +55,7 @@ fn SomeComponent() -> Element {
 ```
 
 ## Supported libraries
-More libraries are going to be added soon.
+Feel free to make a PR to add more libraries or ask for it in an issue.
 
 | Library                 | Feature      | License    | Crate |
 | ----------------------- | ------------ | ---------- | ----- |
@@ -68,9 +68,9 @@ More libraries are going to be added soon.
 | Heroicons               | hero         | MIT        | [hero](https://crates.io/crates/pictogram-icons-hero) |
 | Ionicons                | ion          | MIT        | [ion](https://crates.io/crates/pictogram-icons-ion) |
 | Lucide                  | lucid        | ISC        | [lucide](https://crates.io/crates/pictogram-icons-lucide) |
+| Primer Octicons         | oct          | MIT        | [oct](https://crates.io/crates/pictogram-icons-oct) |
 
 ### TODO List
-* Octicons: https://github.com/primer/octicons
 * Vscode Codicons: https://github.com/microsoft/vscode-codicons
 
 ## License

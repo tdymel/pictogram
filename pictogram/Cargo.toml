@@ -23,6 +23,7 @@ pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.2.5"
 pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.2.5", optional = true, default-features = false }
 
 [features]
 default = [
@@ -35,6 +36,7 @@ default = [
     "hero",
     "ion",
     "lucide",
+    "oct",
 ]
 material = ["dep:pictogram-icons-material", "pictogram-macro/material"]
 bootstrap = ["dep:pictogram-icons-bootstrap", "pictogram-macro/bootstrap"]
@@ -48,3 +50,4 @@ simple = ["dep:pictogram-icons-simple", "pictogram-macro/simple"]
 hero = ["dep:pictogram-icons-hero", "pictogram-macro/hero"]
 ion = ["dep:pictogram-icons-ion", "pictogram-macro/ion"]
 lucide = ["dep:pictogram-icons-lucide", "pictogram-macro/lucide"]
+oct = ["dep:pictogram-icons-oct", "pictogram-macro/oct"]
