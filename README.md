@@ -69,9 +69,7 @@ Feel free to make a PR to add more libraries or ask for it in an issue.
 | Ionicons                | ion          | MIT        | [ion](https://crates.io/crates/pictogram-icons-ion) |
 | Lucide                  | lucid        | ISC        | [lucide](https://crates.io/crates/pictogram-icons-lucide) |
 | Primer Octicons         | oct          | MIT        | [oct](https://crates.io/crates/pictogram-icons-oct) |
-
-### TODO List
-* Vscode Codicons: https://github.com/microsoft/vscode-codicons
+| Vscode Codicons         | vscode       | CC BY 4.0  | [vscode](https://crates.io/crates/pictogram-icons-vscode) |
 
 ## License
 This project is licensed under either

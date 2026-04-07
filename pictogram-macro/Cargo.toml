@@ -22,6 +22,7 @@ pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.2.5", op
 pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-vscode = { path = "../pictogram-icons-vscode", version = "0.2.5", optional = true, default-features = false }
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
@@ -42,6 +43,7 @@ default = [
     "ion",
     "lucide",
     "oct",
+    "vscode",
 ]
 material = ["dep:pictogram-icons-material"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
@@ -53,3 +55,4 @@ hero = ["dep:pictogram-icons-hero"]
 ion = ["dep:pictogram-icons-ion"]
 lucide = ["dep:pictogram-icons-lucide"]
 oct = ["dep:pictogram-icons-oct"]
+vscode = ["dep:pictogram-icons-vscode"]

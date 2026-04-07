@@ -46,6 +46,10 @@ pub use pictogram_icons_lucide::index as lucide;
 #[cfg(feature = "oct")]
 pub use pictogram_icons_oct::index as oct;
 
+/// Index to lookup available icons from vscode
+#[cfg(feature = "vscode")]
+pub use pictogram_icons_vscode::index as vscode;
+
 pub use svg::*;
 pub use view_box::*;
 
