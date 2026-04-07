@@ -62,6 +62,7 @@ More libraries are going to be added soon.
 | Bootstrap               | bootstrap    | MIT        | [bootstrap](https://crates.io/crates/pictogram-icons-bootstrap) |
 | Feather                 | feather      | MIT        | [feather](https://crates.io/crates/pictogram-icons-feather) |
 | Font Awesome            | font-awesome | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
+| Tabler                  | tabler       | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
 
 ## License
 This project is licensed under either
