@@ -96,7 +96,7 @@ macro_rules! define_icon {
 
             dioxus::prelude::rsx! {
                 pictogram_dioxus::Icon {
-                    icon: pictogram::svg!($path),
+                    icon: pictogram::Svg::new(include_str!($path)).unwrap(),
                     attributes: attributes,
                     {children}
                 }

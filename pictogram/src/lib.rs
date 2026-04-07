@@ -59,10 +59,6 @@ pub use view_box::*;
 /// // Using the index
 /// let svg = pictogram::svg!(pictogram::material::action_123::filled);
 /// println!("{}", svg);
-///
-/// // Using a local path
-/// let svg = pictogram::svg!("/assets/some_icon.svg");
-/// println!("{}", svg);
 /// ```
 #[macro_export]
 macro_rules! svg {
@@ -72,5 +68,4 @@ macro_rules! svg {
         };
         $crate::zzz__macro_use_svg_icon!($path)
     }};
-    ($path:literal) => {{ $crate::Svg::new(include_str!($path)).unwrap() }};
 }
