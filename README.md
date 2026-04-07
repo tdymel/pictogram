@@ -64,6 +64,15 @@ More libraries are going to be added soon.
 | Font Awesome            | font-awesome | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
 | Tabler                  | tabler       | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
 
+### TODO List
+* Simple icons: https://github.com/simple-icons/simple-icons
+* Hero Icons: https://github.com/tailwindlabs/heroicons
+* Ion icons: https://github.com/ionic-team/ionicons
+* Lucide: https://github.com/lucide-icons/lucide
+* Octicons: https://github.com/primer/octicons
+* Vscode Codicons: https://github.com/microsoft/vscode-codicons
+* Material symbols: https://github.com/google/material-design-icons
+
 ## License
 This project is licensed under either
 
