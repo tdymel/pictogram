@@ -18,9 +18,13 @@ pub use pictogram_icons_bootstrap::index as bootstrap;
 #[cfg(feature = "feather")]
 pub use pictogram_icons_feather::index as feather;
 
-/// Index to lookup available icons from feather
+/// Index to lookup available icons from font awesome
 #[cfg(feature = "font-awesome")]
 pub use pictogram_icons_font_awesome::index as font_awesome;
+
+/// Index to lookup available icons from tabler
+#[cfg(feature = "tabler")]
+pub use pictogram_icons_tabler::index as tabler;
 
 pub use svg::*;
 pub use view_box::*;

@@ -23,6 +23,8 @@ fn parse_svg(input: &SvgInput) -> Result<Svg, Error> {
         "feather" => pictogram_icons_feather::CARGO_MANIFEST_DIR,
         #[cfg(feature = "font-awesome")]
         "font_awesome" => pictogram_icons_font_awesome::CARGO_MANIFEST_DIR,
+        #[cfg(feature = "tabler")]
+        "tabler" => pictogram_icons_tabler::CARGO_MANIFEST_DIR,
         _ => return Err(Error::SourceNotInstalled(input.source.clone())),
     };
 
