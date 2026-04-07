@@ -513,6 +513,7 @@ dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
+ "pictogram-icons-hero",
  "pictogram-icons-material",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",
@@ -558,6 +559,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-hero"
+version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
+
+[[package]]
 name = "pictogram-icons-material"
 version = "0.2.5"
 dependencies = [
@@ -585,6 +593,7 @@ dependencies = [
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
+ "pictogram-icons-hero",
  "pictogram-icons-material",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",

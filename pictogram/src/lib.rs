@@ -30,6 +30,10 @@ pub use pictogram_icons_tabler::index as tabler;
 #[cfg(feature = "simple")]
 pub use pictogram_icons_simple::index as simple;
 
+/// Index to lookup available icons from heroicons
+#[cfg(feature = "hero")]
+pub use pictogram_icons_hero::index as hero;
+
 pub use svg::*;
 pub use view_box::*;
 

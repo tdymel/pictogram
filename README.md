@@ -4,11 +4,12 @@ During compilation an icon is looked up and baked into your application.
 This bypasses compilation penalties as the entire icon data does not have to be compiled by rustc.
 
 ## Features
-* **NOT** vibe coded. 
+* **Support for many libraries**: See supported libraries for more information.
 * **Type-Safe**: If an icon can't be resolved, it will lead to a compilation error.
 * **Compile-Time**: Icons are baked into your code at compile time.
 * **Only pay for what you need**: Only compile the icons, you actually use.
 * **Framework independent**: Although, there is an [adapter for dioxus](https://crates.io/crates/pictogram-dioxus). 
+* **NOT** vibe coded. 
 
 ## How to use it
 ```toml
@@ -63,15 +64,14 @@ More libraries are going to be added soon.
 | Feather                 | feather      | MIT        | [feather](https://crates.io/crates/pictogram-icons-feather) |
 | Font Awesome            | font-awesome | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
 | Tabler                  | tabler       | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
-| Simple                  | simple       | CC0-1.0    | [simple](https://crates.io/crates/pictogram-simple) |
+| Simple                  | simple       | CC0-1.0    | [simple](https://crates.io/crates/pictogram-icons-simple) |
+| Heroicons               | hero         | MIT        | [hero](https://crates.io/crates/pictogram-icons-hero) |
 
 ### TODO List
-* Hero Icons: https://github.com/tailwindlabs/heroicons
 * Ion icons: https://github.com/ionic-team/ionicons
 * Lucide: https://github.com/lucide-icons/lucide
 * Octicons: https://github.com/primer/octicons
 * Vscode Codicons: https://github.com/microsoft/vscode-codicons
-* Material symbols: https://github.com/google/material-design-icons
 
 ## License
 This project is licensed under either
@@ -84,6 +84,6 @@ This project is licensed under either
 
 at your option.
 
-### Icons
+### Icon Licenses
 All icons are licensed under their respective licenses. 
 Please contact me, if any repository would like to be removed/updated.
