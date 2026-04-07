@@ -24,13 +24,32 @@ println!("{}", svg);
 The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
 
 ```rust,ignore
-rsx! {
-    Icon {
-        icon: pictogram::svg!(pictogram::material::action_123::filled),
+// Define icons locally - from the index
+define_icon!(pictogram::material::social_person::filled);
+// Or from your local assets
+define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
+
+#[component]
+fn SomeComponent() -> Element {
+  rsx! {
+      // Or use the general component
+      Icon {
+          icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
+          width: 48,
+          height: 48,
+          // Compose icons
+          SocialPersonFilled {
+            height: 16,
+            width: 16,
+            x: 4,
+            y: 4
+        }
+      }
+      CustomIcon {
         width: 48,
-        height: 48,
-        ... other attributes of your liking ...
-    }
+        height: 48
+      }
+  }
 }
 ```
 
