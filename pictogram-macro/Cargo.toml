@@ -19,6 +19,7 @@ pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", versi
 pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.2.5", optional = true, default-features = false }
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
@@ -36,6 +37,7 @@ default = [
     "tabler",
     "simple",
     "hero",
+    "ion",
 ]
 material = ["dep:pictogram-icons-material"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
@@ -44,3 +46,4 @@ font-awesome = ["dep:pictogram-icons-font-awesome"]
 tabler = ["dep:pictogram-icons-tabler"]
 simple = ["dep:pictogram-icons-simple"]
 hero = ["dep:pictogram-icons-hero"]
+ion = ["dep:pictogram-icons-ion"]

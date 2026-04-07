@@ -34,6 +34,10 @@ pub use pictogram_icons_simple::index as simple;
 #[cfg(feature = "hero")]
 pub use pictogram_icons_hero::index as hero;
 
+/// Index to lookup available icons from ion
+#[cfg(feature = "ion")]
+pub use pictogram_icons_ion::index as ion;
+
 pub use svg::*;
 pub use view_box::*;
 

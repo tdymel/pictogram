@@ -66,9 +66,9 @@ More libraries are going to be added soon.
 | Tabler                  | tabler       | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
 | Simple                  | simple       | CC0-1.0    | [simple](https://crates.io/crates/pictogram-icons-simple) |
 | Heroicons               | hero         | MIT        | [hero](https://crates.io/crates/pictogram-icons-hero) |
+| Ionicons                | ion          | MIT        | [ion](https://crates.io/crates/pictogram-icons-ion) |
 
 ### TODO List
-* Ion icons: https://github.com/ionic-team/ionicons
 * Lucide: https://github.com/lucide-icons/lucide
 * Octicons: https://github.com/primer/octicons
 * Vscode Codicons: https://github.com/microsoft/vscode-codicons
