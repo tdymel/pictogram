@@ -26,6 +26,10 @@ pub use pictogram_icons_font_awesome::index as font_awesome;
 #[cfg(feature = "tabler")]
 pub use pictogram_icons_tabler::index as tabler;
 
+/// Index to lookup available icons from simple
+#[cfg(feature = "simple")]
+pub use pictogram_icons_simple::index as simple;
+
 pub use svg::*;
 pub use view_box::*;
 

@@ -17,6 +17,7 @@ pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "
 pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.2.5", optional = true, default-features = false }
 pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.2.5", optional = true, default-features = false }
+pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.2.5", optional = true, default-features = false }
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
@@ -26,9 +27,17 @@ roxmltree = "0.21"
 proc-macro = true
 
 [features]
-default = ["material", "bootstrap", "feather", "font-awesome", "tabler"]
+default = [
+    "material",
+    "bootstrap",
+    "feather",
+    "font-awesome",
+    "tabler",
+    "simple",
+]
 material = ["dep:pictogram-icons-material"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
 feather = ["dep:pictogram-icons-feather"]
 font-awesome = ["dep:pictogram-icons-font-awesome"]
 tabler = ["dep:pictogram-icons-tabler"]
+simple = ["dep:pictogram-icons-simple"]

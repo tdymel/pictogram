@@ -514,6 +514,7 @@ dependencies = [
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
  "pictogram-icons-material",
+ "pictogram-icons-simple",
  "pictogram-icons-tabler",
  "pictogram-macro",
 ]
@@ -564,6 +565,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-simple"
+version = "0.2.5"
+dependencies = [
+ "pictogram-icons",
+]
+
+[[package]]
 name = "pictogram-icons-tabler"
 version = "0.2.5"
 dependencies = [
@@ -578,6 +586,7 @@ dependencies = [
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
  "pictogram-icons-material",
+ "pictogram-icons-simple",
  "pictogram-icons-tabler",
  "proc-macro2",
  "quote",
