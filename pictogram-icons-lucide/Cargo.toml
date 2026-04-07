@@ -1,0 +1,16 @@
+[package]
+name = "pictogram-icons-lucide"
+version = "0.2.5"
+edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "README.md"
+repository = "https://github.com/tdymel/pictogram"
+documentation = "https://docs.rs/pictogram"
+license = "MIT OR Apache-2.0"
+description = "Lucide icons export for pictogram"
+keywords = ["icons", "svg", "dioxus", "leptos", "lucide"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+exclude = ["scraper"]
+
+[dependencies]
+pictogram-icons = { path = "../pictogram-icons", version = "0.2.5" }

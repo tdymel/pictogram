@@ -38,6 +38,10 @@ pub use pictogram_icons_hero::index as hero;
 #[cfg(feature = "ion")]
 pub use pictogram_icons_ion::index as ion;
 
+/// Index to lookup available icons from lucide
+#[cfg(feature = "lucide")]
+pub use pictogram_icons_lucide::index as lucide;
+
 pub use svg::*;
 pub use view_box::*;
 
