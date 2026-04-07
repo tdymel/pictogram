@@ -1,5 +1,5 @@
-# Pictogram Icons Bootstrap
-Icons from [bootstrap](https://github.com/twbs/icons).
+# Pictogram Icons Hero
+Icons from [heroicons](https://github.com/tailwindlabs/heroicons).
 
 ## License
 * Code is MIT or Apache-2.0
