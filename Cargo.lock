@@ -540,6 +540,7 @@ dependencies = [
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
  "pictogram-icons-hero",
+ "pictogram-icons-ion",
  "pictogram-icons-lucide",
 ]
 
@@ -581,6 +582,13 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-hero"
+version = "0.3.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-ion"
 version = "0.3.0"
 dependencies = [
  "pictogram-core",

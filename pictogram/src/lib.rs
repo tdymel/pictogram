@@ -21,3 +21,7 @@ pub use pictogram_icons_font_awesome as font_awesome;
 /// Icons from Heroicons. Every icon is a `const` [`Svg`]: `pictogram::hero::<icon>::<variant>`.
 #[cfg(feature = "hero")]
 pub use pictogram_icons_hero as hero;
+
+/// Icons from Ionicons. Every icon is a `const` [`Svg`]: `pictogram::ion::<icon>::<variant>`.
+#[cfg(feature = "ion")]
+pub use pictogram_icons_ion as ion;

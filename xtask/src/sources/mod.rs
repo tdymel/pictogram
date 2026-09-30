@@ -9,6 +9,7 @@ mod bootstrap;
 mod feather;
 mod font_awesome;
 mod hero;
+mod ion;
 mod lucide;
 
 /// Where an icon library lives upstream and how it is laid out.
@@ -54,6 +55,7 @@ pub const ALL: &[&Source] = &[
     &feather::SOURCE,
     &font_awesome::SOURCE,
     &hero::SOURCE,
+    &ion::SOURCE,
     &lucide::SOURCE,
 ];
 

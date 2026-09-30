@@ -8,6 +8,7 @@ members = [
     "pictogram-icons-feather",
     "pictogram-icons-font-awesome",
     "pictogram-icons-hero",
+    "pictogram-icons-ion",
     "pictogram-icons-lucide",
     "xtask",
 ]
