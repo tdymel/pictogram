@@ -29,3 +29,7 @@ pub use pictogram_icons_ion as ion;
 /// Icons from Primer Octicons. Every icon is a `const` [`Svg`]: `pictogram::oct::<icon>::<variant>`.
 #[cfg(feature = "oct")]
 pub use pictogram_icons_oct as oct;
+
+/// Icons from Simple Icons. Every icon is a `const` [`Svg`]: `pictogram::simple::<icon>::<variant>`.
+#[cfg(feature = "simple")]
+pub use pictogram_icons_simple as simple;

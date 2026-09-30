@@ -10,7 +10,11 @@ license = "MIT OR Apache-2.0"
 description = "Simple icons export for pictogram"
 keywords = ["icons", "svg", "dioxus", "leptos", "simple"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
-exclude = ["scraper"]
 
 [dependencies]
-pictogram-icons = { path = "../pictogram-icons", version = "0.3.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+
+# Read and written by `cargo xtask update simple`.
+[package.metadata.pictogram]
+upstream = "https://github.com/simple-icons/simple-icons"
+upstream-version = "16.33.0"
