@@ -6,9 +6,10 @@ pub const SOURCE: Source = Source {
     name: "hero",
     crate_dir: "pictogram-icons-hero",
     repo: "https://github.com/tailwindlabs/heroicons",
-    sparse: &["src/24"],
+    sparse: &["/src/24/"],
     // The icons are drawn with a hard coded #0F172A
     recolor: true,
+    default_branch: false,
     collect,
 };
 

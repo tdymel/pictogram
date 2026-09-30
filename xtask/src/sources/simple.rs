@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "simple",
     crate_dir: "pictogram-icons-simple",
     repo: "https://github.com/simple-icons/simple-icons",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

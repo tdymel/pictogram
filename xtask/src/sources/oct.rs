@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "oct",
     crate_dir: "pictogram-icons-oct",
     repo: "https://github.com/primer/octicons",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

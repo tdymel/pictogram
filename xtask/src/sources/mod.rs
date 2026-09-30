@@ -11,6 +11,7 @@ mod font_awesome;
 mod hero;
 mod ion;
 mod lucide;
+mod material;
 mod oct;
 mod simple;
 mod tabler;
@@ -24,10 +25,14 @@ pub struct Source {
     pub crate_dir: &'static str,
     /// The git repository of the upstream project.
     pub repo: &'static str,
-    /// The only paths of the repository that are needed. Some repositories are huge.
+    /// The only files of the repository that are needed, as gitignore style patterns
+    /// (`/icons/`). Some repositories are huge.
     pub sparse: &'static [&'static str],
     /// Replace hard coded colors by `currentColor`.
     pub recolor: bool,
+    /// The project does not tag releases and is used at the tip of its default branch.
+    /// The commit is recorded as the version then.
+    pub default_branch: bool,
     /// Reads the icons of a checkout of the repository.
     pub collect: fn(&Path) -> Result<Vec<Raw>, String>,
 }
@@ -61,6 +66,7 @@ pub const ALL: &[&Source] = &[
     &hero::SOURCE,
     &ion::SOURCE,
     &lucide::SOURCE,
+    &material::SOURCE,
     &oct::SOURCE,
     &simple::SOURCE,
     &tabler::SOURCE,

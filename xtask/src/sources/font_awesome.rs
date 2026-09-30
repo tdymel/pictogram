@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "font-awesome",
     crate_dir: "pictogram-icons-font-awesome",
     repo: "https://github.com/FortAwesome/Font-Awesome",
-    sparse: &["svgs"],
+    sparse: &["/svgs/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

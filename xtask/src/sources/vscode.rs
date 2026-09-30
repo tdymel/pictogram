@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "vscode",
     crate_dir: "pictogram-icons-vscode",
     repo: "https://github.com/microsoft/vscode-codicons",
-    sparse: &["src/icons"],
+    sparse: &["/src/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

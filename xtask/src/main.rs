@@ -15,6 +15,8 @@ Usage:
 
 update     fetches a release of the upstream repository (the latest one by default)
            and regenerates the icon crate of the library.
+           Projects that do not tag releases (material) are used at the tip of their default
+           branch, and the commit is the version.
 generate   does the same from a checkout you already have, without network access.
 
   --version  the upstream release, recorded in the crate's Cargo.toml
@@ -63,12 +65,25 @@ fn run() -> Result<(), String> {
             version.ok_or("--version is required")?,
         )
     } else {
-        let tag = upstream::resolve(source, version.as_deref())?;
-        let version = upstream::version_of(&tag).ok_or("the tag is not a release")?;
         let dest = env::temp_dir().join(format!("pictogram-xtask-{}", source.name));
-        eprintln!("fetching {} {tag}", source.repo);
-        upstream::fetch(source, &tag, &dest)?;
-        (dest, version)
+        if source.default_branch {
+            if version.is_some() {
+                return Err(format!(
+                    "{} has no releases, --version is not possible",
+                    source.name
+                ));
+            }
+            eprintln!("fetching {}", source.repo);
+            upstream::fetch(source, None, &dest)?;
+            let commit = upstream::head(&dest)?;
+            (dest, commit)
+        } else {
+            let tag = upstream::resolve(source, version.as_deref())?;
+            let version = upstream::version_of(&tag).ok_or("the tag is not a release")?;
+            eprintln!("fetching {} {tag}", source.repo);
+            upstream::fetch(source, Some(&tag), &dest)?;
+            (dest, version)
+        }
     };
 
     let workspace = PathBuf::from(env!("CARGO_MANIFEST_DIR"))

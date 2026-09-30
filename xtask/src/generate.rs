@@ -26,7 +26,9 @@ pub fn run(
     summary: Option<&Path>,
     allow_bump: bool,
 ) -> Result<(), String> {
-    check_version(version)?;
+    if !source.default_branch {
+        check_version(version)?;
+    }
     let crate_dir = workspace.join(source.crate_dir);
     let lib_path = crate_dir.join("src/lib.rs");
     let manifest_path = crate_dir.join("Cargo.toml");

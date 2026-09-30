@@ -62,6 +62,13 @@ fn git(args: &[&str], dir: Option<&Path>) -> Result<String, String> {
     Ok(String::from_utf8_lossy(&output.stdout).into_owned())
 }
 
+/// The commit that is checked out, which is the version of a project without releases.
+pub fn head(dest: &Path) -> Result<String, String> {
+    Ok(git(&["rev-parse", "--short=12", "HEAD"], Some(dest))?
+        .trim()
+        .to_owned())
+}
+
 /// Resolves the tag of a release, the latest one if no version is given.
 pub fn resolve(source: &Source, version: Option<&str>) -> Result<String, String> {
     let listing = git(&["ls-remote", "--tags", "--refs", source.repo], None)?;
@@ -72,26 +79,25 @@ pub fn resolve(source: &Source, version: Option<&str>) -> Result<String, String>
     }
 }
 
-/// Checks out a tag, with only the paths that are needed and without history.
-pub fn fetch(source: &Source, tag: &str, dest: &Path) -> Result<(), String> {
+/// Checks out a tag (the default branch if there is none), with only the paths that are needed
+/// and without history.
+pub fn fetch(source: &Source, tag: Option<&str>, dest: &Path) -> Result<(), String> {
     let _ = fs::remove_dir_all(dest);
     let dest_str = dest.to_str().ok_or("non utf-8 path")?;
-    git(
-        &[
-            "clone",
-            "--quiet",
-            "--depth",
-            "1",
-            "--filter=blob:none",
-            "--sparse",
-            "--branch",
-            tag,
-            source.repo,
-            dest_str,
-        ],
-        None,
-    )?;
-    let mut args = vec!["sparse-checkout", "set"];
+    let mut args = vec![
+        "clone",
+        "--quiet",
+        "--depth",
+        "1",
+        "--filter=blob:none",
+        "--sparse",
+    ];
+    if let Some(tag) = tag {
+        args.extend(["--branch", tag]);
+    }
+    args.extend([source.repo, dest_str]);
+    git(&args, None)?;
+    let mut args = vec!["sparse-checkout", "set", "--no-cone"];
     args.extend(source.sparse);
     git(&args, Some(dest))?;
     Ok(())

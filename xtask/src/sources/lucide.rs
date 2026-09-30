@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "lucide",
     crate_dir: "pictogram-icons-lucide",
     repo: "https://github.com/lucide-icons/lucide",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

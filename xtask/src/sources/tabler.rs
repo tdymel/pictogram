@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "tabler",
     crate_dir: "pictogram-icons-tabler",
     repo: "https://github.com/tabler/tabler-icons",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

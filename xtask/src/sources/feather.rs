@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "feather",
     crate_dir: "pictogram-icons-feather",
     repo: "https://github.com/feathericons/feather",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 

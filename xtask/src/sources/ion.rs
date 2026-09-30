@@ -6,9 +6,10 @@ pub const SOURCE: Source = Source {
     name: "ion",
     crate_dir: "pictogram-icons-ion",
     repo: "https://github.com/ionic-team/ionicons",
-    sparse: &["src/svg"],
+    sparse: &["/src/svg/"],
     // The outlines are drawn with a hard coded #000
     recolor: true,
+    default_branch: false,
     collect,
 };
 

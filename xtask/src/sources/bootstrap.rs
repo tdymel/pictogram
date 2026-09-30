@@ -6,8 +6,9 @@ pub const SOURCE: Source = Source {
     name: "bootstrap",
     crate_dir: "pictogram-icons-bootstrap",
     repo: "https://github.com/twbs/icons",
-    sparse: &["icons"],
+    sparse: &["/icons/"],
     recolor: false,
+    default_branch: false,
     collect,
 };
 
