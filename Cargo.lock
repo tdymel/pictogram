@@ -9,6 +9,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
+name = "askama_escape"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3df27b8d5ddb458c5fb1bbc1ce172d4a38c614a97d550b0ac89003897fb01de4"
+
+[[package]]
 name = "async-trait"
 version = "0.1.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -136,9 +142,9 @@ checksum = "f43f2d511d3c3c439a2fb7f863668b84caf8e0d2440cbfbcbb28521e26ba7f44"
 
 [[package]]
 name = "dioxus-core"
-version = "0.7.4"
+version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb3dd61889e6a09daec93d44db86047fb8e6603beedcf9351b8528582254e075"
+checksum = "1b232228ada232c0adc151e41ebd9ef70cc04683db097fa0dc6015979fa01722"
 dependencies = [
  "anyhow",
  "const_format",
@@ -149,6 +155,7 @@ dependencies = [
  "longest-increasing-subsequence",
  "rustc-hash",
  "rustversion",
+ "serde",
  "slab",
  "slotmap",
  "subsecond",
@@ -170,9 +177,9 @@ dependencies = [
 
 [[package]]
 name = "dioxus-core-types"
-version = "0.7.4"
+version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b99d7d199aad72431b549759550002e7d72c8a257eba500dca9fbdb2122de103"
+checksum = "96007ed6cbad951dfed82d83c581aabd95bc591f351f5666d454ddbe7845b324"
 
 [[package]]
 name = "dioxus-hooks"
@@ -253,6 +260,18 @@ dependencies = [
  "rustc-hash",
  "tracing",
  "warnings",
+]
+
+[[package]]
+name = "dioxus-ssr"
+version = "0.7.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4544ecf908962909de403bfdf94f771b036e9e1857e371cd3279841a15a892e6"
+dependencies = [
+ "askama_escape",
+ "dioxus-core",
+ "dioxus-core-types",
+ "rustc-hash",
 ]
 
 [[package]]
@@ -360,9 +379,9 @@ dependencies = [
 
 [[package]]
 name = "generational-box"
-version = "0.7.4"
+version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ede46ff252793f9b6ef752c506ba8600c69d73cad2ef9bbf2e6dee85019a3bc"
+checksum = "b8b2dc9b873cd1a8adb80aa5dcef9a8205f781a8a313d5ffb867248cb3bcb764"
 dependencies = [
  "parking_lot",
  "tracing",
@@ -373,6 +392,12 @@ name = "ident_case"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
+
+[[package]]
+name = "itoa"
+version = "1.0.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 
 [[package]]
 name = "js-sys"
@@ -510,133 +535,30 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 name = "pictogram"
 version = "0.3.0"
 dependencies = [
- "pictogram-icons-bootstrap",
- "pictogram-icons-feather",
- "pictogram-icons-font-awesome",
- "pictogram-icons-hero",
- "pictogram-icons-ion",
+ "pictogram-core",
  "pictogram-icons-lucide",
- "pictogram-icons-material",
- "pictogram-icons-oct",
- "pictogram-icons-simple",
- "pictogram-icons-tabler",
- "pictogram-icons-vscode",
- "pictogram-macro",
 ]
+
+[[package]]
+name = "pictogram-core"
+version = "0.3.0"
 
 [[package]]
 name = "pictogram-dioxus"
 version = "0.3.0"
 dependencies = [
  "dioxus",
+ "dioxus-ssr",
  "paste",
  "pictogram",
-]
-
-[[package]]
-name = "pictogram-icons"
-version = "0.3.0"
-dependencies = [
- "proc-macro2",
- "quote",
-]
-
-[[package]]
-name = "pictogram-icons-bootstrap"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-feather"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-font-awesome"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-hero"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-ion"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
+ "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-lucide"
 version = "0.3.0"
 dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-material"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-oct"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-simple"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-tabler"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-icons-vscode"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons",
-]
-
-[[package]]
-name = "pictogram-macro"
-version = "0.3.0"
-dependencies = [
- "pictogram-icons-bootstrap",
- "pictogram-icons-feather",
- "pictogram-icons-font-awesome",
- "pictogram-icons-hero",
- "pictogram-icons-ion",
- "pictogram-icons-lucide",
- "pictogram-icons-material",
- "pictogram-icons-oct",
- "pictogram-icons-simple",
- "pictogram-icons-tabler",
- "pictogram-icons-vscode",
- "proc-macro2",
- "quote",
- "roxmltree",
- "syn",
+ "pictogram-core",
 ]
 
 [[package]]
@@ -775,6 +697,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_json"
+version = "1.0.151"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14"
+dependencies = [
+ "itoa",
+ "memchr",
+ "serde",
+ "serde_core",
+ "zmij",
+]
+
+[[package]]
 name = "slab"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -798,9 +733,9 @@ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
 
 [[package]]
 name = "subsecond"
-version = "0.7.4"
+version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dbb9f2928b6654ccc28d4ddfef5213e97ed66afed4907774d049b376c62a838"
+checksum = "d350d5788fa94d560d92269266a50efc77b036bfca6675e420b64df7b3211f37"
 dependencies = [
  "js-sys",
  "libc",
@@ -817,9 +752,9 @@ dependencies = [
 
 [[package]]
 name = "subsecond-types"
-version = "0.7.4"
+version = "0.7.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "388bb28e6ddbee717745963b8932d9a6e24a5d3c93350655f733e938de04d81f"
+checksum = "dcf32d66269b5fbb8558334e8d22b657b2f7af0dd2ef56c231541099a862e464"
 dependencies = [
  "serde",
 ]
@@ -1011,3 +946,18 @@ checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
 dependencies = [
  "windows-link",
 ]
+
+[[package]]
+name = "xtask"
+version = "0.0.0"
+dependencies = [
+ "pictogram-core",
+ "roxmltree",
+ "serde_json",
+]
+
+[[package]]
+name = "zmij"
+version = "1.0.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b"

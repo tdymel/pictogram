@@ -1,8 +1,9 @@
 #![doc = include_str!("../README.md")]
 
-mod icon;
+mod pictogram;
 mod provider;
 
-pub use icon::{Icon, PreparedIconProps};
 pub use paste::paste;
+pub use pictogram::{Pictogram, PictogramProps, PreparedIconProps};
+pub use pictogram_core::Svg;
 pub use provider::IconProvider;

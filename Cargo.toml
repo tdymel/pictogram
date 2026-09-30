@@ -2,14 +2,8 @@
 resolver = "3"
 members = [
     "pictogram",
+    "pictogram-core",
     "pictogram-dioxus",
-    "pictogram-icons",
-    "pictogram-icons-bootstrap",
-    "pictogram-icons-feather",
-    "pictogram-icons-font-awesome",
-    "pictogram-icons-hero",
-    "pictogram-icons-material",
-    "pictogram-icons-simple",
-    "pictogram-icons-tabler",
-    "pictogram-macro",
+    "pictogram-icons-lucide",
+    "xtask",
 ]

@@ -1,75 +1,71 @@
 # Pictogram
-Pictogram resolves icons at compile time using data stored in the manifest directory. 
-During compilation an icon is looked up and baked into your application.
-This bypasses compilation penalties as the entire icon data does not have to be compiled by rustc.
+A compile time friendly svg icon catalogue.
+
+Every icon is a plain `const`. There is no macro and no build script, and only the icons you use end up in your binary.
+
+```rust,ignore
+const HOME: pictogram::Svg = pictogram::lucide::house::outlined;
+```
 
 ## Features
-* **Support for many libraries**: See supported libraries for more information.
-* **Type-Safe**: If an icon can't be resolved, it will lead to a compilation error.
-* **Compile-Time**: Icons are baked into your code at compile time.
-* **Only pay for what you need**: Only compile the icons, you actually use.
-* **Framework independent**: Although, there is an [adapter for dioxus](https://crates.io/crates/pictogram-dioxus). 
-* **NOT** vibe coded. 
+* **Compile time friendly**: The whole catalogue compiles in well under a second, so there are no cargo features to trim it down.
+* **Type-safe**: An icon that does not exist is a compile error, and your editor completes the names.
+* **Const**: Icons can be assigned to `const` and `static` items.
+* **Drawn correctly**: The icon keeps its `fill`, `stroke`, ... so outline icons stay outline icons. Icons use `currentColor` and follow the text color.
+* **Framework independent**: [`pictogram-core`](pictogram-core) has no dependencies. There is an [adapter for dioxus](pictogram-dioxus).
+* **Always up to date**: A workflow checks for new releases of the icon libraries and opens a pull request. Icons that were renamed upstream stay available under their old name as deprecated aliases.
+* **NOT** vibe coded.
 
 ## How to use it
 ```toml
-# By default all features are enabled
-pictogram = { version = "*", features=["material"] }
+[dependencies]
+pictogram = "*"
 ```
+
 ```rust,ignore
-let svg = pictogram::svg!(pictogram::material::action_123::filled);
-println!("{}", svg);
+let svg = pictogram::lucide::house::outlined;
+println!("{svg}"); // <svg xmlns="..." viewBox="0 0 24 24" fill="none" stroke="currentColor" ...>...</svg>
+
+// Icons are data
+svg.view_box; // "0 0 24 24"
+svg.attrs;    // the attributes of the root element
+svg.body;     // everything inside of it
+```
+
+Your own icons are parsed by the compiler:
+```rust,ignore
+const CUSTOM: pictogram::Svg = pictogram::Svg::new(include_str!("custom.svg"));
 ```
 
 ### Dioxus adapter
-The adapter is available [here](https://crates.io/crates/pictogram-dioxus).
-
 ```rust,ignore
-// Define icons locally - from the index
-define_icon!(pictogram::material::social_person::filled);
-// Or from your local assets
-define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
+use pictogram_dioxus::Pictogram;
 
-#[component]
-fn SomeComponent() -> Element {
-  rsx! {
-      // Or use the general component
-      Icon {
-          icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
-          width: "3rem",
-          height: "3rem",
-          // Compose icons
-          SocialPersonFilled {
-            height: 16,
-            width: 16,
-            x: 4,
-            y: 4
-        }
-      }
-      CustomIcon {
+rsx! {
+    Pictogram {
+        icon: pictogram::lucide::house::outlined,
         width: "3rem",
-        height: "3rem"
-      }
-  }
+        height: "3rem",
+        color: "red",
+    }
 }
 ```
+See [pictogram-dioxus](pictogram-dioxus) for more.
 
 ## Supported libraries
-Feel free to make a PR to add more libraries or ask for it in an issue.
+More libraries will follow.
 
-| Library                 | Feature      | License    | Crate |
-| ----------------------- | ------------ | ---------- | ----- |
-| Material design icons   | material     | Apache-2.0 | [material](https://crates.io/crates/pictogram-icons-material) |
-| Bootstrap               | bootstrap    | MIT        | [bootstrap](https://crates.io/crates/pictogram-icons-bootstrap) |
-| Feather                 | feather      | MIT        | [feather](https://crates.io/crates/pictogram-icons-feather) |
-| Font Awesome            | font-awesome | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
-| Tabler                  | tabler       | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
-| Simple                  | simple       | CC0-1.0    | [simple](https://crates.io/crates/pictogram-icons-simple) |
-| Heroicons               | hero         | MIT        | [hero](https://crates.io/crates/pictogram-icons-hero) |
-| Ionicons                | ion          | MIT        | [ion](https://crates.io/crates/pictogram-icons-ion) |
-| Lucide                  | lucid        | ISC        | [lucide](https://crates.io/crates/pictogram-icons-lucide) |
-| Primer Octicons         | oct          | MIT        | [oct](https://crates.io/crates/pictogram-icons-oct) |
-| Vscode Codicons         | vscode       | CC BY 4.0  | [vscode](https://crates.io/crates/pictogram-icons-vscode) |
+| Library | Path                | License | Crate |
+| ------- | ------------------- | ------- | ----- |
+| Lucide  | `pictogram::lucide` | ISC     | [lucide](https://crates.io/crates/pictogram-icons-lucide) |
+
+## How it works
+* [`pictogram-icons-lucide`](pictogram-icons-lucide) is generated by `cargo xtask lucide` from a release of lucide: one `pub const` per icon, and the path (`house::outlined`) is the index.
+* The update workflow is [`.github/workflows/update-lucide.yml`](.github/workflows/update-lucide.yml). To update by hand:
+  ```sh
+  git clone --depth 1 --branch <version> https://github.com/lucide-icons/lucide /tmp/lucide
+  cargo xtask lucide --source /tmp/lucide --version <version>
+  ```
 
 ## License
 This project is licensed under either
@@ -83,5 +79,5 @@ This project is licensed under either
 at your option.
 
 ### Icon Licenses
-All icons are licensed under their respective licenses. 
+All icons are licensed under their respective licenses.
 Please contact me, if any repository would like to be removed/updated.

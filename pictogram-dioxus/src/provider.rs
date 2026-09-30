@@ -1,22 +1,12 @@
 use dioxus::prelude::*;
 
-/// Props to decouple the provider and icon itself
-#[derive(PartialEq, Props, Clone)]
-pub struct DefaultProps {
+use crate::pictogram::merge;
+
+/// The attributes an [`IconProvider`] hands to every [`Pictogram`](crate::Pictogram) below it.
+#[derive(PartialEq, Props, Clone, Default)]
+pub(crate) struct ProviderAttributes {
     #[props(extends = GlobalAttributes)]
     pub attributes: Vec<Attribute>,
-}
-
-impl Default for DefaultProps {
-    fn default() -> Self {
-        Self {
-            attributes: vec![
-                Attribute::new("height", "24px", None, false),
-                Attribute::new("width", "24px", None, false),
-                Attribute::new("fill", "currentColor", None, false),
-            ],
-        }
-    }
 }
 
 /// Props for the IconProvider component
@@ -27,27 +17,24 @@ pub struct IconProviderProps {
     pub children: Option<Element>,
 }
 
-/// Provide default attributes for the icon component
+/// Provide attributes for all icons below it.
+/// They replace the attributes of the icon itself, but not the ones set on the component.
 /// ```rust,ignore
 /// IconProvider {
 ///     height: "3rem",
 ///     width: "3rem",
-///     fill: "blue",
-///     Icon {
-///         icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
+///     Pictogram {
+///         icon: pictogram::lucide::house::outlined,
 ///     }
 /// }
 /// ```
 #[allow(non_snake_case)]
 pub fn IconProvider(props: IconProviderProps) -> Element {
     use_context_provider(|| {
-        let mut default_props = DefaultProps::default();
-        default_props
-            .attributes
-            .retain(|d| !props.attributes.iter().any(|c| c.name == d.name));
-        default_props.attributes.extend(props.attributes);
-
-        default_props
+        let parent: ProviderAttributes = try_consume_context().unwrap_or_default();
+        ProviderAttributes {
+            attributes: merge(parent.attributes.into_iter().chain(props.attributes)),
+        }
     });
     rsx! { {props.children} }
 }

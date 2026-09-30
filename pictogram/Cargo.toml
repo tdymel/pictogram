@@ -7,50 +7,15 @@ readme = "../README.md"
 repository = "https://github.com/tdymel/pictogram"
 documentation = "https://docs.rs/pictogram"
 license = "MIT OR Apache-2.0"
-description = "A compile time svg icon resolver."
+description = "A compile time svg icon catalogue."
 keywords = ["icons", "svg", "dioxus", "leptos"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["tests"]
 
 [dependencies]
-pictogram-macro = { path = "../pictogram-macro", version = "0.3.0" }
-pictogram-icons-material = { path = "../pictogram-icons-material", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.3.0", optional = true, default-features = false }
-pictogram-icons-vscode = { path = "../pictogram-icons-vscode", version = "0.3.0", optional = true, default-features = false }
+pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.3.0", optional = true }
 
 [features]
-default = [
-    "material",
-    "bootstrap",
-    "feather",
-    "font-awesome",
-    "tabler",
-    "simple",
-    "hero",
-    "ion",
-    "lucide",
-    "oct",
-    "vscode",
-]
-material = ["dep:pictogram-icons-material", "pictogram-macro/material"]
-bootstrap = ["dep:pictogram-icons-bootstrap", "pictogram-macro/bootstrap"]
-feather = ["dep:pictogram-icons-feather", "pictogram-macro/feather"]
-font-awesome = [
-    "dep:pictogram-icons-font-awesome",
-    "pictogram-macro/font-awesome",
-]
-tabler = ["dep:pictogram-icons-tabler", "pictogram-macro/tabler"]
-simple = ["dep:pictogram-icons-simple", "pictogram-macro/simple"]
-hero = ["dep:pictogram-icons-hero", "pictogram-macro/hero"]
-ion = ["dep:pictogram-icons-ion", "pictogram-macro/ion"]
-lucide = ["dep:pictogram-icons-lucide", "pictogram-macro/lucide"]
-oct = ["dep:pictogram-icons-oct", "pictogram-macro/oct"]
-vscode = ["dep:pictogram-icons-vscode", "pictogram-macro/vscode"]
+default = ["lucide"]
+lucide = ["dep:pictogram-icons-lucide"]

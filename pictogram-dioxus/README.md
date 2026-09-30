@@ -1,92 +1,76 @@
 # Pictogram dioxus
-This library provides a convenient interface to create **unstyled** icons using [pictogram](https://crates.io/crates/pictogram).
+An adapter to render [pictogram](https://crates.io/crates/pictogram) icons with dioxus 0.7.
 
 ## Features
+* **Drawn correctly**: The icon keeps its `fill`, `stroke`, ... and follows the text color (`currentColor`).
 * **Unstyled**: A white canvas, ready to be used!
 * **Custom SVG**: Use your own SVGs.
-* **Many icons**: Mix and match from any icon libraries that are supported by pictogram.
+* **Lean**: It only depends on `pictogram-core` and dioxus. The icons come from your own dependency on `pictogram`.
 
 ## How to use it
 ```toml
 [dependencies]
-# By default all features are enabled
-pictogram = { version = "*", features=["material"] }
-pictogram_dioxus = "*"
+pictogram = "*"
+pictogram-dioxus = "*"
 ```
 
 ```rust,ignore
 rsx! {
-    Icon {
-        icon: pictogram::svg!(pictogram::material::action_123::filled),
+    Pictogram {
+        icon: pictogram::lucide::house::outlined,
         width: "3rem",
         height: "3rem",
+        color: "red",
         ... other attributes of your liking ...
     }
 }
 ```
 
+### Attributes
+`width`, `height`, `color`, `stroke`, ... are css properties in dioxus and win over the attributes of the icon.
+So `stroke: "red"` colors an outline icon, while `color: "red"` colors every icon that uses `currentColor`.
+
+### Provide defaults
+```rust,ignore
+rsx! {
+    IconProvider {
+        width: "1.5rem",
+        height: "1.5rem",
+        Pictogram { icon: pictogram::lucide::house::outlined }
+    }
+}
+```
+Attributes of the `IconProvider` replace those of the icon; attributes of the `Pictogram` replace those of the provider.
+
 ### Combining components
 ```rust,ignore
 rsx! {
-    Icon {
-        icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
-        height: "3rem",
-        width: "3rem",
-        Icon {
-            icon: pictogram::svg!(pictogram::material::social_person::filled),
-            height: 16,
-            width: 16,
-            x: 4,
-            y: 4
+    Pictogram {
+        icon: pictogram::lucide::house::outlined,
+        Pictogram {
+            icon: pictogram::lucide::arrow_up::outlined,
+            width: 8,
+            height: 8,
         }
     }
 }
 ```
 
-### Define dedicated icon components
-Best used by defining all icons in a separate `icons.rs` file.
-
+### Prepared icons
 ```rust,ignore
-define_icon!(pictogram::material::image_crop_free::outlined);
+// Define icons locally - from the catalogue
+define_icon!(pictogram::lucide::house::outlined);
+// Or from your local assets
 define_icon!(CustomIcon, "local-path-to-custom-icon.svg");
 
 #[component]
 fn SomeComponent() -> Element {
     rsx! {
-        ImageCropFreeOutlined {
-            height: "3rem",
-            width: "3rem"
-        }
-        CustomIcon {
-            height: "3rem",
-            width: "3rem"
-        }
+        HouseOutlined { width: "3rem", height: "3rem" }
+        CustomIcon { width: "3rem", height: "3rem" }
     }
 }
 ```
 
-**Question**: Why dont I provide all icons predefined?
-**Answer**: It increases the compile times significantly
-
-### Provide global styling
-```rust,ignore
-IconProvider {
-    height: "3rem",
-    width: "3rem",
-    fill: "blue",
-    Icon {
-        icon: pictogram::svg!(pictogram::material::image_crop_free::outlined),
-    }
-}
-```
-
-## License
-This project is licensed under either
-
-* [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
-  ([LICENSE-APACHE](LICENSE-APACHE))
-
-* [MIT License](https://opensource.org/licenses/MIT)
-  ([LICENSE-MIT](LICENSE-MIT))
-
-at your option.
+## Other frameworks
+`pictogram-core` has no dependencies. An icon is `Svg { view_box, attrs, body }`, and `svg.attributes()` iterates over the attributes of the root element, so an adapter for another framework is a few lines.
