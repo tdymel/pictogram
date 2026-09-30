@@ -13,5 +13,6 @@ members = [
     "pictogram-icons-oct",
     "pictogram-icons-simple",
     "pictogram-icons-tabler",
+    "pictogram-icons-vscode",
     "xtask",
 ]

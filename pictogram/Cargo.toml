@@ -23,9 +23,10 @@ pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.3.0", opti
 pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.3.0", optional = true }
 pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.3.0", optional = true }
 pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.3.0", optional = true }
+pictogram-icons-vscode = { path = "../pictogram-icons-vscode", version = "0.3.0", optional = true }
 
 [features]
-default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide", "oct", "simple", "tabler"]
+default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide", "oct", "simple", "tabler", "vscode"]
 lucide = ["dep:pictogram-icons-lucide"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
 feather = ["dep:pictogram-icons-feather"]
@@ -35,3 +36,4 @@ ion = ["dep:pictogram-icons-ion"]
 oct = ["dep:pictogram-icons-oct"]
 simple = ["dep:pictogram-icons-simple"]
 tabler = ["dep:pictogram-icons-tabler"]
+vscode = ["dep:pictogram-icons-vscode"]

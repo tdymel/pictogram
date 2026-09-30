@@ -37,3 +37,7 @@ pub use pictogram_icons_simple as simple;
 /// Icons from Tabler Icons. Every icon is a `const` [`Svg`]: `pictogram::tabler::<icon>::<variant>`.
 #[cfg(feature = "tabler")]
 pub use pictogram_icons_tabler as tabler;
+
+/// Icons from VSCode Codicons. Every icon is a `const` [`Svg`]: `pictogram::vscode::<icon>::<variant>`.
+#[cfg(feature = "vscode")]
+pub use pictogram_icons_vscode as vscode;

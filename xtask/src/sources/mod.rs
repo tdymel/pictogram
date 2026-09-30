@@ -14,6 +14,7 @@ mod lucide;
 mod oct;
 mod simple;
 mod tabler;
+mod vscode;
 
 /// Where an icon library lives upstream and how it is laid out.
 pub struct Source {
@@ -63,6 +64,7 @@ pub const ALL: &[&Source] = &[
     &oct::SOURCE,
     &simple::SOURCE,
     &tabler::SOURCE,
+    &vscode::SOURCE,
 ];
 
 pub fn find(name: &str) -> Result<&'static Source, String> {
