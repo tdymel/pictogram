@@ -536,6 +536,7 @@ name = "pictogram"
 version = "0.3.0"
 dependencies = [
  "pictogram-core",
+ "pictogram-icons-bootstrap",
  "pictogram-icons-lucide",
 ]
 
@@ -551,6 +552,13 @@ dependencies = [
  "dioxus-ssr",
  "paste",
  "pictogram",
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-bootstrap"
+version = "0.3.0"
+dependencies = [
  "pictogram-core",
 ]
 

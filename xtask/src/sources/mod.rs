@@ -5,6 +5,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+mod bootstrap;
 mod lucide;
 
 /// Where an icon library lives upstream and how it is laid out.
@@ -23,6 +24,17 @@ pub struct Source {
     pub collect: fn(&Path) -> Result<Vec<Raw>, String>,
 }
 
+impl Raw {
+    pub fn new(name: impl Into<String>, variant: &str, path: PathBuf) -> Raw {
+        Raw {
+            name: name.into(),
+            variant: variant.to_owned(),
+            path,
+            aliases: Vec::new(),
+        }
+    }
+}
+
 /// One icon of one variant, as found upstream.
 pub struct Raw {
     /// The name of the icon, e.g. `arrow-up`. Becomes the module.
@@ -34,7 +46,7 @@ pub struct Raw {
     pub aliases: Vec<String>,
 }
 
-pub const ALL: &[&Source] = &[&lucide::SOURCE];
+pub const ALL: &[&Source] = &[&bootstrap::SOURCE, &lucide::SOURCE];
 
 pub fn find(name: &str) -> Result<&'static Source, String> {
     ALL.iter().copied().find(|s| s.name == name).ok_or_else(|| {
