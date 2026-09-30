@@ -10,28 +10,13 @@ use std::{
 use crate::{
     bump::{self, Bump},
     icon,
-};
-
-/// Where an icon library lives upstream and where its crate lives here.
-pub struct Source {
-    pub name: &'static str,
-    pub crate_dir: &'static str,
-    pub repo: &'static str,
-    /// Directory of the `.svg` files, relative to the upstream checkout.
-    pub icons_dir: &'static str,
-    /// Every icon of the source is exposed as this variant.
-    pub variant: &'static str,
-}
-
-pub const LUCIDE: Source = Source {
-    name: "lucide",
-    crate_dir: "pictogram-icons-lucide",
-    repo: "https://github.com/lucide-icons/lucide",
-    icons_dir: "icons",
-    variant: "outlined",
+    sources::Source,
 };
 
 const VERSION_KEY: &str = "upstream-version";
+
+/// One icon of the generated crate: a module with a constant per variant.
+type Module = BTreeMap<String, icon::Parsed>;
 
 pub fn run(
     source: &Source,
@@ -53,40 +38,41 @@ pub fn run(
         fs::read_to_string(&manifest_path).map_err(|e| format!("{manifest_path:?}: {e}"))?;
     let previous_version = read_version(&manifest)?;
 
-    // Read and convert every icon. Sorted by file name so the output is deterministic.
-    let icons_dir = checkout.join(source.icons_dir);
-    let mut files: Vec<_> = fs::read_dir(&icons_dir)
-        .map_err(|e| format!("{icons_dir:?}: {e}"))?
-        .filter_map(|e| e.ok().map(|e| e.path()))
-        .filter(|p| p.extension().is_some_and(|e| e == "svg"))
-        .collect();
-    files.sort();
-    if files.is_empty() {
-        return Err(format!("no .svg files in {icons_dir:?}"));
+    // Read and convert every icon. Sorted, so the output is deterministic.
+    let mut raws = (source.collect)(checkout)?;
+    if raws.is_empty() {
+        return Err(format!("no icons found in {checkout:?}"));
     }
+    raws.sort_by(|a, b| (&a.name, &a.variant).cmp(&(&b.name, &b.variant)));
 
     let mut warnings = Vec::new();
-    let mut icons = BTreeMap::new();
-    for path in files {
-        let stem = path
-            .file_stem()
-            .and_then(|s| s.to_str())
-            .ok_or("non utf-8 file name")?;
-        let src = fs::read_to_string(&path).map_err(|e| format!("{path:?}: {e}"))?;
-        let icon = icon::parse(stem, &src, &mut warnings)?;
-        if let Some(other) = icons.insert(icon.module.clone(), icon) {
+    let mut modules: BTreeMap<String, Module> = BTreeMap::new();
+    let mut alias_sources: Vec<(String, Vec<String>)> = Vec::new();
+    for raw in raws {
+        let label = format!("{}-{}", raw.name, raw.variant);
+        let src = fs::read_to_string(&raw.path).map_err(|e| format!("{:?}: {e}", raw.path))?;
+        let parsed = icon::parse(&label, &src, source.recolor, &mut warnings)?;
+        let module = icon::ident(&raw.name).map_err(|e| format!("{label}: {e}"))?;
+        let variant = icon::ident(&raw.variant).map_err(|e| format!("{label}: {e}"))?;
+        if !raw.aliases.is_empty() {
+            alias_sources.push((module.clone(), raw.aliases));
+        }
+        if modules
+            .entry(module)
+            .or_default()
+            .insert(variant, parsed)
+            .is_some()
+        {
             return Err(format!(
-                "two icons are turned into the module `{}`",
-                other.module
+                "{label} exists twice (names are made unique by `_`/`-`)"
             ));
         }
     }
+    let aliases = resolve_aliases(&modules, alias_sources, &mut warnings);
 
-    let aliases = read_aliases(&icons_dir, &icons, &mut warnings);
-
-    let code = emit(source, version, &icons, &aliases);
+    let code = emit(source, version, &modules, &aliases);
     let lib_changed = fs::read_to_string(&lib_path).map_or(true, |old| old != code);
-    let current: BTreeSet<_> = icons.keys().chain(aliases.keys()).cloned().collect();
+    let current: BTreeSet<_> = modules.keys().chain(aliases.keys()).cloned().collect();
     let removed = previous_icons.difference(&current).count();
 
     // Icons that were only added are a patch, removed icons are breaking.
@@ -130,6 +116,39 @@ pub fn run(
     Ok(())
 }
 
+/// Former names of icons, mapped to the icon they are now called.
+/// They stay available as deprecated modules, so a rename upstream does not break anyone.
+fn resolve_aliases(
+    modules: &BTreeMap<String, Module>,
+    sources: Vec<(String, Vec<String>)>,
+    warnings: &mut Vec<String>,
+) -> BTreeMap<String, String> {
+    let mut aliases: BTreeMap<String, String> = BTreeMap::new();
+    for (module, names) in sources {
+        for name in names {
+            let alias = match icon::ident(&name) {
+                Ok(alias) => alias,
+                Err(e) => {
+                    warnings.push(format!("alias of `{module}` ignored: {e}"));
+                    continue;
+                }
+            };
+            if modules.contains_key(&alias) {
+                continue; // the name is a real icon again
+            }
+            if let Some(other) = aliases.insert(alias.clone(), module.clone())
+                && other != module
+            {
+                warnings.push(format!(
+                    "`{alias}` is an alias of `{other}` and `{module}`; kept `{other}`"
+                ));
+                aliases.insert(alias, other);
+            }
+        }
+    }
+    aliases
+}
+
 /// A breaking release of an icon crate: the crates depending on it require the new version,
 /// and `pictogram`, which re-exports it, gets a breaking release as well.
 fn bump_dependents(workspace: &Path, krate: &str, version: &str) -> Result<Vec<String>, String> {
@@ -142,7 +161,6 @@ fn bump_dependents(workspace: &Path, krate: &str, version: &str) -> Result<Vec<S
     let facade = fs::read_to_string(&facade_path).map_err(|e| format!("{facade_path:?}: {e}"))?;
     let old = bump::read_package_version(&facade)?;
     let new = bump::next(&old, Bump::Minor)?;
-    // Only the first icon crate of a run bumps `pictogram`; the version is compared, not stacked.
     lines.push(format!("{} {old} -> {new}", bump::FACADE));
     fs::write(&facade_path, bump::write_package_version(&facade, &new)?)
         .map_err(|e| format!("{facade_path:?}: {e}"))?;
@@ -165,92 +183,42 @@ fn check_version(version: &str) -> Result<(), String> {
 fn emit(
     source: &Source,
     version: &str,
-    icons: &BTreeMap<String, icon::Icon>,
+    modules: &BTreeMap<String, Module>,
     aliases: &BTreeMap<String, String>,
 ) -> String {
-    let mut out = String::with_capacity(icons.len() * 700);
+    let mut out = String::with_capacity(modules.len() * 700);
     let _ = writeln!(
         out,
-        "// @generated by `cargo xtask {}` from {} {version}. Do not edit.",
+        "// @generated by `cargo xtask update {}` from {} {version}. Do not edit.",
         source.name, source.repo
     );
     out.push_str("#![doc = include_str!(\"../README.md\")]\n#![no_std]\n#![allow(non_upper_case_globals)]\n#![cfg_attr(rustfmt, rustfmt::skip)]\n");
 
     // Icons and aliases in one alphabetical list.
-    let mut names: Vec<&String> = icons.keys().chain(aliases.keys()).collect();
+    let mut names: Vec<&String> = modules.keys().chain(aliases.keys()).collect();
     names.sort();
     for name in names {
-        if let Some(icon) = icons.get(name) {
-            let _ = write!(
-                out,
-                "\npub mod {module} {{\n    pub const {variant}: ::pictogram_core::Svg = ::pictogram_core::Svg {{\n        view_box: {view_box:?},\n        attrs: {attrs:?},\n        body: {body:?},\n    }};\n}}\n",
-                module = icon.module,
-                variant = source.variant,
-                view_box = icon.view_box,
-                attrs = icon.attrs,
-                body = icon.body,
-            );
+        if let Some(variants) = modules.get(name) {
+            let _ = write!(out, "\npub mod {name} {{\n");
+            for (variant, icon) in variants {
+                let _ = write!(
+                    out,
+                    "    pub const {variant}: ::pictogram_core::Svg = ::pictogram_core::Svg {{\n        view_box: {:?},\n        attrs: {:?},\n        body: {:?},\n    }};\n",
+                    icon.view_box, icon.attrs, icon.body
+                );
+            }
+            out.push_str("}\n");
         } else {
             let target = &aliases[name];
+            let variants: Vec<&str> = modules[target].keys().map(String::as_str).collect();
             let _ = write!(
                 out,
-                "\n#[deprecated(note = \"renamed to `{target}`\")]\npub mod {name} {{\n    pub const {variant}: ::pictogram_core::Svg = super::{target}::{variant};\n}}\n",
-                variant = source.variant,
+                "\n#[deprecated(note = \"renamed to `{target}`\")]\npub mod {name} {{\n    pub use super::{target}::{{{}}};\n}}\n",
+                variants.join(", ")
             );
         }
     }
     out
-}
-
-/// Former names of icons, from the `<icon>.json` next to every `<icon>.svg`.
-/// They stay available as deprecated modules, so a rename upstream does not break anyone.
-fn read_aliases(
-    icons_dir: &Path,
-    icons: &BTreeMap<String, icon::Icon>,
-    warnings: &mut Vec<String>,
-) -> BTreeMap<String, String> {
-    let mut aliases: BTreeMap<String, String> = BTreeMap::new();
-    for (module, icon) in icons {
-        let path = icons_dir.join(format!("{}.json", icon.file_stem));
-        let Ok(json) = fs::read_to_string(&path) else {
-            continue;
-        };
-        for name in alias_names(&json) {
-            let alias = match icon::module_ident(&name) {
-                Ok(alias) => alias,
-                Err(e) => {
-                    warnings.push(format!("alias of `{module}` ignored: {e}"));
-                    continue;
-                }
-            };
-            if icons.contains_key(&alias) {
-                continue; // the name is a real icon again
-            }
-            if let Some(other) = aliases.insert(alias.clone(), module.clone())
-                && &other != module
-            {
-                warnings.push(format!(
-                    "`{alias}` is an alias of `{other}` and `{module}`; kept `{other}`"
-                ));
-                aliases.insert(alias, other);
-            }
-        }
-    }
-    aliases
-}
-
-/// `"aliases": ["a", {"name": "b", ...}]`
-fn alias_names(json: &str) -> Vec<String> {
-    let Ok(value) = serde_json::from_str::<serde_json::Value>(json) else {
-        return vec![];
-    };
-    let Some(list) = value.get("aliases").and_then(|a| a.as_array()) else {
-        return vec![];
-    };
-    list.iter()
-        .filter_map(|a| a.as_str().or_else(|| a.get("name")?.as_str()))
-        .map(str::to_owned)
-        .collect()
 }
 
 /// The module names of a previously generated `lib.rs`.
@@ -377,14 +345,6 @@ mod tests {
         assert!(check_version("v1.7.0").is_err());
         assert!(check_version("1.7").is_err());
         assert!(check_version("1.7.0-beta").is_err());
-    }
-
-    #[test]
-    fn reads_aliases() {
-        let json = r#"{"tags": [], "aliases": [{"name": "home", "deprecated": true}, "old-home"]}"#;
-        assert_eq!(alias_names(json), ["home", "old-home"]);
-        assert!(alias_names(r#"{"tags": []}"#).is_empty());
-        assert!(alias_names("not json").is_empty());
     }
 
     #[test]

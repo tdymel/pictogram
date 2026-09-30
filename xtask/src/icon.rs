@@ -1,18 +1,17 @@
 //! Turns an upstream `.svg` file into the data of one generated icon.
 
+use std::ops::Range;
+
 use pictogram_core::Svg;
 
-pub struct Icon {
-    /// The name of the upstream file without its extension.
-    pub file_stem: String,
-    /// The identifier of the module, e.g. `arrow_up` or `r#box`.
-    pub module: String,
+/// The parts of an icon, ready to be written into the generated crate.
+pub struct Parsed {
     pub view_box: String,
     pub attrs: String,
     pub body: String,
 }
 
-/// Rust keywords, which can only be used as a module name in their raw form (`r#box`).
+/// Rust keywords, which can only be used as an identifier in their raw form (`r#box`).
 const KEYWORDS: &[&str] = &[
     "as", "break", "const", "continue", "else", "enum", "extern", "false", "fn", "for", "if",
     "impl", "in", "let", "loop", "match", "mod", "move", "mut", "pub", "ref", "return", "static",
@@ -25,14 +24,15 @@ const KEYWORDS: &[&str] = &[
 const UNUSABLE: &[&str] = &["crate", "self", "Self", "super", "_"];
 
 /// `arrow-up` -> `arrow_up`, `1-2` -> `_1_2`, `box` -> `r#box`.
-pub fn module_ident(file_stem: &str) -> Result<String, String> {
-    let name = file_stem.replace('-', "_");
+/// Used for the module of an icon and for its variants.
+pub fn ident(name: &str) -> Result<String, String> {
+    let name = name.replace('-', "_");
     if name.is_empty() || !name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
-        return Err(format!("'{file_stem}' cannot be turned into a module name"));
+        return Err(format!("'{name}' cannot be turned into an identifier"));
     }
     if UNUSABLE.contains(&name.as_str()) {
         return Err(format!(
-            "'{file_stem}' is a reserved word that cannot be a module name"
+            "'{name}' is a reserved word that cannot be an identifier"
         ));
     }
     Ok(if name.starts_with(|c: char| c.is_ascii_digit()) {
@@ -44,46 +44,58 @@ pub fn module_ident(file_stem: &str) -> Result<String, String> {
     })
 }
 
-pub fn parse(file_stem: &str, src: &str, warnings: &mut Vec<String>) -> Result<Icon, String> {
-    let doc =
-        roxmltree::Document::parse(src).map_err(|e| format!("{file_stem}: invalid xml: {e}"))?;
+/// `recolor` replaces hard coded colors by `currentColor`, so monochrome icons follow the text color.
+pub fn parse(
+    label: &str,
+    src: &str,
+    recolor: bool,
+    warnings: &mut Vec<String>,
+) -> Result<Parsed, String> {
+    let doc = roxmltree::Document::parse(src).map_err(|e| format!("{label}: invalid xml: {e}"))?;
     if doc.root_element().tag_name().name() != "svg" {
-        return Err(format!("{file_stem}: the root element is not <svg>"));
+        return Err(format!("{label}: the root element is not <svg>"));
     }
-    if let Some(color) = hard_coded_color(&doc) {
+
+    let edits = color_edits(&doc);
+    let mut src = src.to_owned();
+    if recolor {
+        // Back to front, so the ranges stay valid
+        for (range, replacement) in edits.into_iter().rev() {
+            src.replace_range(range, &replacement);
+        }
+    } else if !edits.is_empty() {
         warnings.push(format!(
-            "`{file_stem}` hard codes {color}; it will not follow the text color"
+            "`{label}` hard codes a color; it will not follow the text color"
         ));
     }
 
     // The very same parser that is used for custom icons.
-    let src: &'static str = Box::leak(src.to_owned().into_boxed_str());
+    let src: &'static str = Box::leak(src.into_boxed_str());
     let svg = std::panic::catch_unwind(|| Svg::new(src))
-        .map_err(|_| format!("{file_stem}: could not be parsed (is there a viewBox?)"))?;
+        .map_err(|_| format!("{label}: could not be parsed (is there a viewBox?)"))?;
 
     let attrs = svg
         .attributes()
         .map(|(name, value)| format!("{name}=\"{}\"", value.replace('"', "&quot;")))
         .collect::<Vec<_>>()
         .join(" ");
-    Ok(Icon {
-        file_stem: file_stem.to_owned(),
-        module: module_ident(file_stem)?,
+    Ok(Parsed {
         view_box: svg.view_box.to_owned(),
         attrs,
         body: minify(svg.body),
     })
 }
 
-fn hard_coded_color(doc: &roxmltree::Document) -> Option<String> {
-    const COLOR_ATTRS: &[&str] = &[
-        "fill",
-        "stroke",
-        "stop-color",
-        "flood-color",
-        "lighting-color",
-        "color",
-    ];
+const COLOR_PROPERTIES: &[&str] = &[
+    "fill",
+    "stroke",
+    "stop-color",
+    "flood-color",
+    "lighting-color",
+    "color",
+];
+
+fn is_hard_coded(value: &str) -> bool {
     const NEUTRAL: &[&str] = &[
         "none",
         "currentColor",
@@ -92,17 +104,40 @@ fn hard_coded_color(doc: &roxmltree::Document) -> Option<String> {
         "context-fill",
         "context-stroke",
     ];
-    doc.descendants()
-        .filter(|n| n.is_element())
-        .find_map(|node| {
-            node.attributes()
-                .find(|a| {
-                    COLOR_ATTRS.contains(&a.name())
-                        && !NEUTRAL.contains(&a.value().trim())
-                        && !a.value().trim().starts_with("url(")
-                })
-                .map(|a| format!("{}=\"{}\"", a.name(), a.value()))
-        })
+    let value = value.trim();
+    !NEUTRAL.contains(&value) && !value.starts_with("url(")
+}
+
+/// Where a color is hard coded, as attribute or in `style`, and what to write instead.
+fn color_edits(doc: &roxmltree::Document) -> Vec<(Range<usize>, String)> {
+    let mut edits = Vec::new();
+    for node in doc.descendants().filter(|n| n.is_element()) {
+        for attribute in node.attributes() {
+            let value = attribute.value();
+            if COLOR_PROPERTIES.contains(&attribute.name()) && is_hard_coded(value) {
+                edits.push((attribute.range_value(), "currentColor".to_owned()));
+            } else if attribute.name() == "style" {
+                let rewritten = value
+                    .split(';')
+                    .map(|declaration| match declaration.split_once(':') {
+                        Some((property, value))
+                            if COLOR_PROPERTIES.contains(&property.trim())
+                                && is_hard_coded(value) =>
+                        {
+                            format!("{property}:currentColor")
+                        }
+                        _ => declaration.to_owned(),
+                    })
+                    .collect::<Vec<_>>()
+                    .join(";");
+                if rewritten != value {
+                    edits.push((attribute.range_value(), rewritten));
+                }
+            }
+        }
+    }
+    edits.sort_by_key(|(range, _)| range.start);
+    edits
 }
 
 /// Removes the pretty printing between elements, which is not needed in the binary.
@@ -145,15 +180,19 @@ pub fn minify(body: &str) -> String {
 mod tests {
     use super::*;
 
+    fn parse_plain(src: &str) -> Result<Parsed, String> {
+        parse("test", src, false, &mut vec![])
+    }
+
     #[test]
-    fn module_names() {
-        assert_eq!(module_ident("arrow-up").unwrap(), "arrow_up");
-        assert_eq!(module_ident("grid-2x2").unwrap(), "grid_2x2");
-        assert_eq!(module_ident("1-2").unwrap(), "_1_2");
-        assert_eq!(module_ident("box").unwrap(), "r#box");
-        assert_eq!(module_ident("type").unwrap(), "r#type");
-        assert!(module_ident("self").is_err());
-        assert!(module_ident("a.b").is_err());
+    fn identifiers() {
+        assert_eq!(ident("arrow-up").unwrap(), "arrow_up");
+        assert_eq!(ident("grid-2x2").unwrap(), "grid_2x2");
+        assert_eq!(ident("1-2").unwrap(), "_1_2");
+        assert_eq!(ident("box").unwrap(), "r#box");
+        assert_eq!(ident("type").unwrap(), "r#type");
+        assert!(ident("self").is_err());
+        assert!(ident("a.b").is_err());
     }
 
     #[test]
@@ -178,15 +217,12 @@ mod tests {
     }
 
     #[test]
-    fn parses_a_lucide_icon() {
+    fn parses_an_icon() {
         let src = "<!-- c -->\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n  <path d=\"M1\" />\n</svg>\n";
-        let mut warnings = vec![];
-        let icon = parse("box", src, &mut warnings).unwrap();
-        assert_eq!(icon.module, "r#box");
+        let icon = parse_plain(src).unwrap();
         assert_eq!(icon.view_box, "0 0 24 24");
         assert_eq!(icon.attrs, "fill=\"none\" stroke=\"currentColor\"");
         assert_eq!(icon.body, "<path d=\"M1\" />");
-        assert!(warnings.is_empty());
     }
 
     #[test]
@@ -195,6 +231,7 @@ mod tests {
         parse(
             "a",
             "<svg viewBox=\"0 0 1 1\"><path fill=\"#000\"/></svg>",
+            false,
             &mut warnings,
         )
         .unwrap();
@@ -202,7 +239,19 @@ mod tests {
     }
 
     #[test]
+    fn recolors_attributes_and_styles() {
+        let src = "<svg viewBox=\"0 0 1 1\" fill=\"none\"><path fill=\"#0F172A\" stroke=\"black\"/><path style=\"fill:none;stroke:#000;stroke-width:32px\"/><path fill=\"url(#a)\"/></svg>";
+        let mut warnings = vec![];
+        let icon = parse("a", src, true, &mut warnings).unwrap();
+        assert_eq!(
+            icon.body,
+            "<path fill=\"currentColor\" stroke=\"currentColor\"/><path style=\"fill:none;stroke:currentColor;stroke-width:32px\"/><path fill=\"url(#a)\"/>"
+        );
+        assert!(warnings.is_empty());
+    }
+
+    #[test]
     fn missing_view_box_is_an_error() {
-        assert!(parse("a", "<svg><g/></svg>", &mut vec![]).is_err());
+        assert!(parse_plain("<svg><g/></svg>").is_err());
     }
 }

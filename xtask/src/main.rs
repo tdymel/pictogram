@@ -3,14 +3,20 @@
 mod bump;
 mod generate;
 mod icon;
+mod sources;
+mod upstream;
 
 use std::{env, path::PathBuf, process::ExitCode};
 
 const USAGE: &str = "\
-Usage: cargo xtask lucide --source <checkout> --version <x.y.z> [--summary <file>] [--no-bump]
+Usage:
+  cargo xtask update <library> [--version <x.y.z>] [--summary <file>] [--no-bump]
+  cargo xtask generate <library> --source <checkout> --version <x.y.z> [--summary <file>] [--no-bump]
 
-Regenerates pictogram-icons-lucide from a checkout of https://github.com/lucide-icons/lucide.
-  --source   path of the upstream checkout (at the release tag)
+update     fetches a release of the upstream repository (the latest one by default)
+           and regenerates the icon crate of the library.
+generate   does the same from a checkout you already have, without network access.
+
   --version  the upstream release, recorded in the crate's Cargo.toml
   --summary  writes a markdown summary of the changes (used for the pull request)
   --no-bump  do not bump the versions of the crates
@@ -30,11 +36,11 @@ fn main() -> ExitCode {
 
 fn run() -> Result<(), String> {
     let mut args = env::args().skip(1);
-    let source = match args.next().as_deref() {
-        Some("lucide") => &generate::LUCIDE,
-        Some(other) => return Err(format!("unknown task '{other}'")),
-        None => return Err("missing task".into()),
-    };
+    let task = args.next().ok_or("missing task")?;
+    if task != "update" && task != "generate" {
+        return Err(format!("unknown task '{task}'"));
+    }
+    let source = sources::find(&args.next().ok_or("missing library")?)?;
 
     let (mut checkout, mut version, mut summary, mut allow_bump) = (None, None, None, true);
     while let Some(flag) = args.next() {
@@ -50,8 +56,20 @@ fn run() -> Result<(), String> {
             other => return Err(format!("unknown flag '{other}'")),
         }
     }
-    let checkout = checkout.ok_or("--source is required")?;
-    let version = version.ok_or("--version is required")?;
+
+    let (checkout, version) = if task == "generate" {
+        (
+            checkout.ok_or("--source is required")?,
+            version.ok_or("--version is required")?,
+        )
+    } else {
+        let tag = upstream::resolve(source, version.as_deref())?;
+        let version = upstream::version_of(&tag).ok_or("the tag is not a release")?;
+        let dest = env::temp_dir().join(format!("pictogram-xtask-{}", source.name));
+        eprintln!("fetching {} {tag}", source.repo);
+        upstream::fetch(source, &tag, &dest)?;
+        (dest, version)
+    };
 
     let workspace = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("..")
