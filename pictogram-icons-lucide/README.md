@@ -17,7 +17,7 @@ let _ = pictogram_icons_lucide::r#box::outlined;
 Usually you use it through [pictogram](https://crates.io/crates/pictogram): `pictogram::lucide::house::outlined`.
 
 ## Updates
-`src/lib.rs` is generated from a release of lucide by `cargo xtask lucide` and is updated automatically.
+`src/lib.rs` is generated from a release of lucide by `cargo xtask update lucide` and is updated automatically.
 The release it was generated from is `upstream-version` in `Cargo.toml`.
 
 ## License
