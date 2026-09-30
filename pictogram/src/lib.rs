@@ -13,3 +13,7 @@ pub use pictogram_icons_bootstrap as bootstrap;
 /// Icons from Feather. Every icon is a `const` [`Svg`]: `pictogram::feather::<icon>::<variant>`.
 #[cfg(feature = "feather")]
 pub use pictogram_icons_feather as feather;
+
+/// Icons from Font Awesome. Every icon is a `const` [`Svg`]: `pictogram::font_awesome::<icon>::<variant>`.
+#[cfg(feature = "font-awesome")]
+pub use pictogram_icons_font_awesome as font_awesome;

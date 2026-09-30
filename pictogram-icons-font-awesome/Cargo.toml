@@ -10,7 +10,11 @@ license = "MIT OR Apache-2.0"
 description = "Font Awesome icons export for pictogram"
 keywords = ["icons", "svg", "dioxus", "leptos", "font-awesome"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
-exclude = ["scraper"]
 
 [dependencies]
-pictogram-icons = { path = "../pictogram-icons", version = "0.3.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+
+# Read and written by `cargo xtask update font-awesome`.
+[package.metadata.pictogram]
+upstream = "https://github.com/FortAwesome/Font-Awesome"
+upstream-version = "7.3.1"
