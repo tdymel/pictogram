@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-dioxus"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -13,7 +13,7 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["tests"]
 
 [dependencies]
-pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.4.0" }
 dioxus = { version = "0.7", default-features = false, features = [
     "html",
     "macro",
@@ -23,5 +23,5 @@ dioxus = { version = "0.7", default-features = false, features = [
 paste = "1"
 
 [dev-dependencies]
-pictogram = { path = "../pictogram", version = "0.3.0", default-features = false, features = ["lucide"] }
+pictogram = { path = "../pictogram", version = "0.4.0", default-features = false, features = ["lucide"] }
 dioxus-ssr = "0.7"

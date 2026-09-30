@@ -7,4 +7,4 @@ publish = false
 [dependencies]
 roxmltree = "0.21"
 serde_json = "1"
-pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.4.0" }
