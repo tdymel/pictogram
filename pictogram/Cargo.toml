@@ -22,9 +22,10 @@ pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.3.0", op
 pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.3.0", optional = true }
 pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.3.0", optional = true }
 pictogram-icons-simple = { path = "../pictogram-icons-simple", version = "0.3.0", optional = true }
+pictogram-icons-tabler = { path = "../pictogram-icons-tabler", version = "0.3.0", optional = true }
 
 [features]
-default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide", "oct", "simple"]
+default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide", "oct", "simple", "tabler"]
 lucide = ["dep:pictogram-icons-lucide"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
 feather = ["dep:pictogram-icons-feather"]
@@ -33,3 +34,4 @@ hero = ["dep:pictogram-icons-hero"]
 ion = ["dep:pictogram-icons-ion"]
 oct = ["dep:pictogram-icons-oct"]
 simple = ["dep:pictogram-icons-simple"]
+tabler = ["dep:pictogram-icons-tabler"]

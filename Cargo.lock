@@ -544,6 +544,7 @@ dependencies = [
  "pictogram-icons-lucide",
  "pictogram-icons-oct",
  "pictogram-icons-simple",
+ "pictogram-icons-tabler",
 ]
 
 [[package]]
@@ -612,6 +613,13 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-simple"
+version = "0.3.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-tabler"
 version = "0.3.0"
 dependencies = [
  "pictogram-core",

@@ -33,3 +33,7 @@ pub use pictogram_icons_oct as oct;
 /// Icons from Simple Icons. Every icon is a `const` [`Svg`]: `pictogram::simple::<icon>::<variant>`.
 #[cfg(feature = "simple")]
 pub use pictogram_icons_simple as simple;
+
+/// Icons from Tabler Icons. Every icon is a `const` [`Svg`]: `pictogram::tabler::<icon>::<variant>`.
+#[cfg(feature = "tabler")]
+pub use pictogram_icons_tabler as tabler;

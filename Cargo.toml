@@ -12,5 +12,6 @@ members = [
     "pictogram-icons-lucide",
     "pictogram-icons-oct",
     "pictogram-icons-simple",
+    "pictogram-icons-tabler",
     "xtask",
 ]
