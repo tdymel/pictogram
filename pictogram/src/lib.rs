@@ -17,3 +17,7 @@ pub use pictogram_icons_feather as feather;
 /// Icons from Font Awesome. Every icon is a `const` [`Svg`]: `pictogram::font_awesome::<icon>::<variant>`.
 #[cfg(feature = "font-awesome")]
 pub use pictogram_icons_font_awesome as font_awesome;
+
+/// Icons from Heroicons. Every icon is a `const` [`Svg`]: `pictogram::hero::<icon>::<variant>`.
+#[cfg(feature = "hero")]
+pub use pictogram_icons_hero as hero;

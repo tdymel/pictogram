@@ -8,6 +8,7 @@ use std::{
 mod bootstrap;
 mod feather;
 mod font_awesome;
+mod hero;
 mod lucide;
 
 /// Where an icon library lives upstream and how it is laid out.
@@ -52,6 +53,7 @@ pub const ALL: &[&Source] = &[
     &bootstrap::SOURCE,
     &feather::SOURCE,
     &font_awesome::SOURCE,
+    &hero::SOURCE,
     &lucide::SOURCE,
 ];
 
