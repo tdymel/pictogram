@@ -41,3 +41,7 @@ pub use pictogram_icons_tabler as tabler;
 /// Icons from VSCode Codicons. Every icon is a `const` [`Svg`]: `pictogram::vscode::<icon>::<variant>`.
 #[cfg(feature = "vscode")]
 pub use pictogram_icons_vscode as vscode;
+
+/// Icons from Material Design Icons. Every icon is a `const` [`Svg`]: `pictogram::material::<icon>::<variant>`.
+#[cfg(feature = "material")]
+pub use pictogram_icons_material as material;

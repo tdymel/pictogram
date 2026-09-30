@@ -10,7 +10,11 @@ license = "MIT OR Apache-2.0"
 description = "Material design icons export for pictogram"
 keywords = ["icons", "svg", "dioxus", "leptos", "material"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
-exclude = ["scraper"]
 
 [dependencies]
-pictogram-icons = { path = "../pictogram-icons", version = "0.3.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
+
+# Read and written by `cargo xtask update material`.
+[package.metadata.pictogram]
+upstream = "https://github.com/google/material-design-icons"
+upstream-version = "bd8cb85bd4ba"

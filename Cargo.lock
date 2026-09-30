@@ -542,6 +542,7 @@ dependencies = [
  "pictogram-icons-hero",
  "pictogram-icons-ion",
  "pictogram-icons-lucide",
+ "pictogram-icons-material",
  "pictogram-icons-oct",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",
@@ -600,6 +601,13 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-lucide"
+version = "0.3.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-material"
 version = "0.3.0"
 dependencies = [
  "pictogram-core",

@@ -20,13 +20,14 @@ fn custom_icon() {
 /// Every library is reachable through the facade.
 #[test]
 fn every_library_is_available() {
-    let icons: [Svg; 10] = [
+    let icons: [Svg; 11] = [
         pictogram::bootstrap::house::outlined,
         pictogram::feather::heart::outlined,
         pictogram::font_awesome::house::solid,
         pictogram::hero::bell::outlined,
         pictogram::ion::repeat::outlined,
         pictogram::lucide::house::outlined,
+        pictogram::material::action_home::filled,
         pictogram::oct::repo::outlined,
         pictogram::simple::github::regular,
         pictogram::tabler::home::outlined,
