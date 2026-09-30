@@ -5,6 +5,7 @@ members = [
     "pictogram-core",
     "pictogram-dioxus",
     "pictogram-icons-bootstrap",
+    "pictogram-icons-feather",
     "pictogram-icons-lucide",
     "xtask",
 ]

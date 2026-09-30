@@ -16,8 +16,10 @@ exclude = ["tests"]
 pictogram-core = { path = "../pictogram-core", version = "0.3.0" }
 pictogram-icons-lucide = { path = "../pictogram-icons-lucide", version = "0.3.0", optional = true }
 pictogram-icons-bootstrap = { path = "../pictogram-icons-bootstrap", version = "0.3.0", optional = true }
+pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.3.0", optional = true }
 
 [features]
-default = ["bootstrap", "lucide"]
+default = ["bootstrap", "feather", "lucide"]
 lucide = ["dep:pictogram-icons-lucide"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
+feather = ["dep:pictogram-icons-feather"]

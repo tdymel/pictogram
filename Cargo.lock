@@ -537,6 +537,7 @@ version = "0.3.0"
 dependencies = [
  "pictogram-core",
  "pictogram-icons-bootstrap",
+ "pictogram-icons-feather",
  "pictogram-icons-lucide",
 ]
 
@@ -557,6 +558,13 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-bootstrap"
+version = "0.3.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-feather"
 version = "0.3.0"
 dependencies = [
  "pictogram-core",

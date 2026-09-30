@@ -6,6 +6,7 @@ use std::{
 };
 
 mod bootstrap;
+mod feather;
 mod lucide;
 
 /// Where an icon library lives upstream and how it is laid out.
@@ -46,7 +47,7 @@ pub struct Raw {
     pub aliases: Vec<String>,
 }
 
-pub const ALL: &[&Source] = &[&bootstrap::SOURCE, &lucide::SOURCE];
+pub const ALL: &[&Source] = &[&bootstrap::SOURCE, &feather::SOURCE, &lucide::SOURCE];
 
 pub fn find(name: &str) -> Result<&'static Source, String> {
     ALL.iter().copied().find(|s| s.name == name).ok_or_else(|| {
