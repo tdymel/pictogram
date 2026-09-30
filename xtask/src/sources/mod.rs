@@ -11,6 +11,7 @@ mod font_awesome;
 mod hero;
 mod ion;
 mod lucide;
+mod oct;
 
 /// Where an icon library lives upstream and how it is laid out.
 pub struct Source {
@@ -57,6 +58,7 @@ pub const ALL: &[&Source] = &[
     &hero::SOURCE,
     &ion::SOURCE,
     &lucide::SOURCE,
+    &oct::SOURCE,
 ];
 
 pub fn find(name: &str) -> Result<&'static Source, String> {

@@ -10,5 +10,6 @@ members = [
     "pictogram-icons-hero",
     "pictogram-icons-ion",
     "pictogram-icons-lucide",
+    "pictogram-icons-oct",
     "xtask",
 ]

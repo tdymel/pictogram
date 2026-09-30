@@ -20,12 +20,14 @@ pictogram-icons-feather = { path = "../pictogram-icons-feather", version = "0.3.
 pictogram-icons-font-awesome = { path = "../pictogram-icons-font-awesome", version = "0.3.0", optional = true }
 pictogram-icons-hero = { path = "../pictogram-icons-hero", version = "0.3.0", optional = true }
 pictogram-icons-ion = { path = "../pictogram-icons-ion", version = "0.3.0", optional = true }
+pictogram-icons-oct = { path = "../pictogram-icons-oct", version = "0.3.0", optional = true }
 
 [features]
-default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide"]
+default = ["bootstrap", "feather", "font-awesome", "hero", "ion", "lucide", "oct"]
 lucide = ["dep:pictogram-icons-lucide"]
 bootstrap = ["dep:pictogram-icons-bootstrap"]
 feather = ["dep:pictogram-icons-feather"]
 font-awesome = ["dep:pictogram-icons-font-awesome"]
 hero = ["dep:pictogram-icons-hero"]
 ion = ["dep:pictogram-icons-ion"]
+oct = ["dep:pictogram-icons-oct"]
