@@ -79,7 +79,8 @@ fn run() -> Result<(), String> {
             (dest, commit)
         } else {
             let tag = upstream::resolve(source, version.as_deref())?;
-            let version = upstream::version_of(&tag).ok_or("the tag is not a release")?;
+            let version =
+                upstream::version_of(&tag, source.tag_prefix).ok_or("the tag is not a release")?;
             eprintln!("fetching {} {tag}", source.repo);
             upstream::fetch(source, Some(&tag), &dest)?;
             (dest, version)

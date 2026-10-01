@@ -26,6 +26,10 @@ pub use pictogram_icons_hero as hero;
 #[cfg(feature = "ion")]
 pub use pictogram_icons_ion as ion;
 
+/// Icons from Lobe Icons. Every icon is a `const` [`Svg`]: `pictogram::lobe::<icon>::<variant>`.
+#[cfg(feature = "lobe")]
+pub use pictogram_icons_lobe as lobe;
+
 /// Icons from Primer Octicons. Every icon is a `const` [`Svg`]: `pictogram::oct::<icon>::<variant>`.
 #[cfg(feature = "oct")]
 pub use pictogram_icons_oct as oct;

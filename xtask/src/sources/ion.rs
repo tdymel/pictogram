@@ -10,6 +10,8 @@ pub const SOURCE: Source = Source {
     // The outlines are drawn with a hard coded #000
     recolor: true,
     default_branch: false,
+    tag_prefix: "",
+    drop_root_style: false,
     collect,
 };
 

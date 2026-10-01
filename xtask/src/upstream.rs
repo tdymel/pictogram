@@ -5,8 +5,15 @@ use std::{fs, path::Path, process::Command};
 use crate::sources::Source;
 
 /// `refs/tags/v1.2.3` and `refs/tags/1.2.3` are both release `1.2.3`.
-pub fn version_of(tag: &str) -> Option<String> {
-    let version = tag.strip_prefix('v').unwrap_or(tag);
+///
+/// A repository with several packages tags `@scope/package@1.2.3`. The prefix is then given and
+/// the tags of the other packages are no release.
+pub fn version_of(tag: &str, prefix: &str) -> Option<String> {
+    let version = if prefix.is_empty() {
+        tag.strip_prefix('v').unwrap_or(tag)
+    } else {
+        tag.strip_prefix(prefix)?
+    };
     let numbers: Option<Vec<u64>> = version.split('.').map(|p| p.parse().ok()).collect();
     (numbers?.len() == 3).then(|| version.to_owned())
 }
@@ -29,17 +36,17 @@ fn tags(ls_remote: &str) -> impl Iterator<Item = &str> {
 }
 
 /// The tag of the highest release. Tags that are no release (`nightly`, `v1.0.0-rc1`) are ignored.
-pub fn latest_tag(ls_remote: &str) -> Option<String> {
+pub fn latest_tag(ls_remote: &str, prefix: &str) -> Option<String> {
     tags(ls_remote)
-        .filter_map(|t| Some((number_triple(&version_of(t)?), t)))
+        .filter_map(|t| Some((number_triple(&version_of(t, prefix)?), t)))
         .max()
         .map(|(_, tag)| tag.to_owned())
 }
 
 /// The tag of a release: `1.2.3` may be tagged `1.2.3` or `v1.2.3`.
-pub fn find_tag(ls_remote: &str, version: &str) -> Option<String> {
+pub fn find_tag(ls_remote: &str, version: &str, prefix: &str) -> Option<String> {
     tags(ls_remote)
-        .find(|t| version_of(t).as_deref() == Some(version))
+        .find(|t| version_of(t, prefix).as_deref() == Some(version))
         .map(str::to_owned)
 }
 
@@ -73,9 +80,10 @@ pub fn head(dest: &Path) -> Result<String, String> {
 pub fn resolve(source: &Source, version: Option<&str>) -> Result<String, String> {
     let listing = git(&["ls-remote", "--tags", "--refs", source.repo], None)?;
     match version {
-        Some(version) => find_tag(&listing, version)
+        Some(version) => find_tag(&listing, version, source.tag_prefix)
             .ok_or_else(|| format!("{} has no release {version}", source.repo)),
-        None => latest_tag(&listing).ok_or_else(|| format!("{} has no releases", source.repo)),
+        None => latest_tag(&listing, source.tag_prefix)
+            .ok_or_else(|| format!("{} has no releases", source.repo)),
     }
 }
 
@@ -109,24 +117,54 @@ mod tests {
 
     const LISTING: &str = "aaa\trefs/tags/v2.1.3\nbbb\trefs/tags/4.0.0\nccc\trefs/tags/v4.10.2\nddd\trefs/tags/v4.9.0\neee\trefs/tags/nightly\nfff\trefs/tags/v5.0.0-rc1\nggg\trefs/tags/4.10.1\n";
 
+    const PACKAGES: &str = "a\trefs/tags/v5.22.0\nb\trefs/tags/@lobehub/icons-static-png@1.99.0\nc\trefs/tags/@lobehub/icons-static-svg@1.9.0\nd\trefs/tags/@lobehub/icons-static-svg@1.95.1\ne\trefs/tags/@lobehub/icons-static-svg@1.95.0\nf\trefs/tags/@lobehub/icons-static-svg@2.0.0-beta.1\n";
+    const SVG: &str = "@lobehub/icons-static-svg@";
+
     #[test]
     fn versions_of_tags() {
-        assert_eq!(version_of("v1.2.3").as_deref(), Some("1.2.3"));
-        assert_eq!(version_of("1.2.3").as_deref(), Some("1.2.3"));
-        assert_eq!(version_of("v1.2.3-rc1"), None);
-        assert_eq!(version_of("nightly"), None);
-        assert_eq!(version_of("1.2"), None);
+        assert_eq!(version_of("v1.2.3", "").as_deref(), Some("1.2.3"));
+        assert_eq!(version_of("1.2.3", "").as_deref(), Some("1.2.3"));
+        assert_eq!(version_of("v1.2.3-rc1", ""), None);
+        assert_eq!(version_of("nightly", ""), None);
+        assert_eq!(version_of("1.2", ""), None);
     }
 
     #[test]
     fn the_latest_release_is_by_number_not_by_text() {
-        assert_eq!(latest_tag(LISTING).as_deref(), Some("v4.10.2"));
+        assert_eq!(latest_tag(LISTING, "").as_deref(), Some("v4.10.2"));
     }
 
     #[test]
     fn a_release_may_be_tagged_with_or_without_v() {
-        assert_eq!(find_tag(LISTING, "4.0.0").as_deref(), Some("4.0.0"));
-        assert_eq!(find_tag(LISTING, "4.9.0").as_deref(), Some("v4.9.0"));
-        assert_eq!(find_tag(LISTING, "9.9.9"), None);
+        assert_eq!(find_tag(LISTING, "4.0.0", "").as_deref(), Some("4.0.0"));
+        assert_eq!(find_tag(LISTING, "4.9.0", "").as_deref(), Some("v4.9.0"));
+        assert_eq!(find_tag(LISTING, "9.9.9", ""), None);
+    }
+
+    #[test]
+    fn the_tags_of_a_package_are_told_apart_by_the_prefix() {
+        assert_eq!(
+            version_of("@lobehub/icons-static-svg@1.95.1", SVG).as_deref(),
+            Some("1.95.1")
+        );
+        assert_eq!(version_of("@lobehub/icons-static-png@1.99.0", SVG), None);
+        assert_eq!(version_of("v5.22.0", SVG), None);
+        // without a prefix the tag of another package is no release either
+        assert_eq!(version_of("@lobehub/icons-static-svg@1.95.1", ""), None);
+        // and the optional `v` belongs to the tags without a prefix
+        assert_eq!(version_of("@lobehub/icons-static-svg@v1.95.1", SVG), None);
+    }
+
+    #[test]
+    fn the_latest_release_of_a_package() {
+        assert_eq!(
+            latest_tag(PACKAGES, SVG).as_deref(),
+            Some("@lobehub/icons-static-svg@1.95.1")
+        );
+        assert_eq!(
+            find_tag(PACKAGES, "1.9.0", SVG).as_deref(),
+            Some("@lobehub/icons-static-svg@1.9.0")
+        );
+        assert_eq!(find_tag(PACKAGES, "1.99.0", SVG), None);
     }
 }

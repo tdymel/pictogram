@@ -10,6 +10,8 @@ pub const SOURCE: Source = Source {
     // The icons are drawn with a hard coded #0F172A
     recolor: true,
     default_branch: false,
+    tag_prefix: "",
+    drop_root_style: false,
     collect,
 };
 

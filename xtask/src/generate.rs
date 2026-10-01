@@ -52,8 +52,18 @@ pub fn run(
     let mut alias_sources: Vec<(String, Vec<String>)> = Vec::new();
     for raw in raws {
         let label = format!("{}-{}", raw.name, raw.variant);
-        let src = fs::read_to_string(&raw.path).map_err(|e| format!("{:?}: {e}", raw.path))?;
-        let parsed = icon::parse(&label, &src, source.recolor, &mut warnings)?;
+        let mut src = fs::read_to_string(&raw.path).map_err(|e| format!("{:?}: {e}", raw.path))?;
+        if source.drop_root_style {
+            src = icon::drop_root_style(&label, &src)?;
+        }
+        // The hard coded colors of a multi color icon are intended
+        let mut ignored = Vec::new();
+        let icon_warnings = if raw.colored {
+            &mut ignored
+        } else {
+            &mut warnings
+        };
+        let parsed = icon::parse(&label, &src, source.recolor, icon_warnings)?;
         let module = icon::ident(&raw.name).map_err(|e| format!("{label}: {e}"))?;
         let variant = icon::ident(&raw.variant).map_err(|e| format!("{label}: {e}"))?;
         if !raw.aliases.is_empty() {

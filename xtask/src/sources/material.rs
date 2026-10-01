@@ -14,6 +14,8 @@ pub const SOURCE: Source = Source {
     recolor: false,
     // Google does not tag releases any more, the last tag (4.0.0) misses a third of the icons
     default_branch: true,
+    tag_prefix: "",
+    drop_root_style: false,
     collect,
 };
 

@@ -9,6 +9,8 @@ pub const SOURCE: Source = Source {
     sparse: &["/src/icons/"],
     recolor: false,
     default_branch: false,
+    tag_prefix: "",
+    drop_root_style: false,
     collect,
 };
 

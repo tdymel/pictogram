@@ -10,6 +10,7 @@ mod feather;
 mod font_awesome;
 mod hero;
 mod ion;
+mod lobe;
 mod lucide;
 mod material;
 mod oct;
@@ -33,6 +34,12 @@ pub struct Source {
     /// The project does not tag releases and is used at the tip of its default branch.
     /// The commit is recorded as the version then.
     pub default_branch: bool,
+    /// The part of a release tag in front of the version, for repositories that release several
+    /// packages (`@scope/package@1.2.3`). Empty if the tag is the version, with or without `v`.
+    pub tag_prefix: &'static str,
+    /// The icons come with a `style` on the root element (a leftover of using them as font icons),
+    /// which is dropped so it cannot clash with the styles of the renderer.
+    pub drop_root_style: bool,
     /// Reads the icons of a checkout of the repository.
     pub collect: fn(&Path) -> Result<Vec<Raw>, String>,
 }
@@ -44,7 +51,14 @@ impl Raw {
             variant: variant.to_owned(),
             path,
             aliases: Vec::new(),
+            colored: false,
         }
+    }
+
+    /// The icon has its own colors by design, so hard coded colors are no reason to warn.
+    pub fn colored(mut self) -> Raw {
+        self.colored = true;
+        self
     }
 }
 
@@ -57,6 +71,8 @@ pub struct Raw {
     pub path: PathBuf,
     /// Former names of the icon. They stay available as deprecated modules.
     pub aliases: Vec<String>,
+    /// A multi color icon: its hard coded colors are intended and not warned about.
+    pub colored: bool,
 }
 
 pub const ALL: &[&Source] = &[
@@ -65,6 +81,7 @@ pub const ALL: &[&Source] = &[
     &font_awesome::SOURCE,
     &hero::SOURCE,
     &ion::SOURCE,
+    &lobe::SOURCE,
     &lucide::SOURCE,
     &material::SOURCE,
     &oct::SOURCE,

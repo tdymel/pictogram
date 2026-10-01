@@ -44,6 +44,22 @@ pub fn ident(name: &str) -> Result<String, String> {
     })
 }
 
+/// Removes the `style` of the root element, like `style="flex:none;line-height:1"`.
+pub fn drop_root_style(label: &str, src: &str) -> Result<String, String> {
+    let doc = roxmltree::Document::parse(src).map_err(|e| format!("{label}: invalid xml: {e}"))?;
+    let Some(style) = doc
+        .root_element()
+        .attributes()
+        .find(|a| a.name() == "style")
+    else {
+        return Ok(src.to_owned());
+    };
+    let range = style.range();
+    // together with the space in front of it
+    let start = src[..range.start].trim_end().len();
+    Ok(format!("{}{}", &src[..start], &src[range.end..]))
+}
+
 /// `recolor` replaces hard coded colors by `currentColor`, so monochrome icons follow the text color.
 pub fn parse(
     label: &str,
@@ -193,6 +209,17 @@ mod tests {
         assert_eq!(ident("type").unwrap(), "r#type");
         assert!(ident("self").is_err());
         assert!(ident("a.b").is_err());
+    }
+
+    #[test]
+    fn drops_the_style_of_the_root_only() {
+        let src = "<svg fill=\"none\" style=\"flex:none;line-height:1\" viewBox=\"0 0 1 1\"><path style=\"fill:red\"/></svg>";
+        assert_eq!(
+            drop_root_style("a", src).unwrap(),
+            "<svg fill=\"none\" viewBox=\"0 0 1 1\"><path style=\"fill:red\"/></svg>"
+        );
+        let plain = "<svg viewBox=\"0 0 1 1\"/>";
+        assert_eq!(drop_root_style("a", plain).unwrap(), plain);
     }
 
     #[test]

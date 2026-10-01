@@ -9,6 +9,8 @@ pub const SOURCE: Source = Source {
     sparse: &["/icons/"],
     recolor: false,
     default_branch: false,
+    tag_prefix: "",
+    drop_root_style: false,
     collect,
 };
 
@@ -23,6 +25,7 @@ fn collect(root: &Path) -> Result<Vec<Raw>, String> {
             name: stem,
             variant: "outlined".to_owned(),
             path,
+            colored: false,
         })
         .collect())
 }
