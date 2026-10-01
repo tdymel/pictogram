@@ -22,6 +22,10 @@ pub use pictogram_icons_font_awesome as font_awesome;
 #[cfg(feature = "hero")]
 pub use pictogram_icons_hero as hero;
 
+/// Icons from Iconoir. Every icon is a `const` [`Svg`]: `pictogram::iconoir::<icon>::<variant>`.
+#[cfg(feature = "iconoir")]
+pub use pictogram_icons_iconoir as iconoir;
+
 /// Icons from Ionicons. Every icon is a `const` [`Svg`]: `pictogram::ion::<icon>::<variant>`.
 #[cfg(feature = "ion")]
 pub use pictogram_icons_ion as ion;
@@ -33,6 +37,10 @@ pub use pictogram_icons_lobe as lobe;
 /// Icons from Primer Octicons. Every icon is a `const` [`Svg`]: `pictogram::oct::<icon>::<variant>`.
 #[cfg(feature = "oct")]
 pub use pictogram_icons_oct as oct;
+
+/// Icons from Phosphor. Every icon is a `const` [`Svg`]: `pictogram::phosphor::<icon>::<variant>`.
+#[cfg(feature = "phosphor")]
+pub use pictogram_icons_phosphor as phosphor;
 
 /// Icons from Simple Icons. Every icon is a `const` [`Svg`]: `pictogram::simple::<icon>::<variant>`.
 #[cfg(feature = "simple")]

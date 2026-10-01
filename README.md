@@ -60,11 +60,13 @@ Every library is a crate that is generated from a release of the upstream projec
 | Feather               | `pictogram::feather`     | `outlined`                        | MIT        | [feather](https://crates.io/crates/pictogram-icons-feather) |
 | Font Awesome          | `pictogram::font_awesome`| `solid`, `regular`, `brands`      | CC BY 4.0  | [font-awesome](https://crates.io/crates/pictogram-icons-font-awesome) |
 | Heroicons             | `pictogram::hero`        | `outlined`, `solid`               | MIT        | [hero](https://crates.io/crates/pictogram-icons-hero) |
+| Iconoir               | `pictogram::iconoir`     | `regular`, `solid`                | MIT        | [iconoir](https://crates.io/crates/pictogram-icons-iconoir) |
 | Ionicons              | `pictogram::ion`         | `outlined`, `filled`, `sharp`     | MIT        | [ion](https://crates.io/crates/pictogram-icons-ion) |
 | Lobe Icons            | `pictogram::lobe`        | `mono`, `color`, `text`, `text_color`, `text_cn`, `brand`, `brand_color` | MIT | [lobe](https://crates.io/crates/pictogram-icons-lobe) |
 | Lucide                | `pictogram::lucide`      | `outlined`                        | ISC        | [lucide](https://crates.io/crates/pictogram-icons-lucide) |
 | Material design icons | `pictogram::material`    | `filled`, `outlined`, `rounded`, `sharp`, `two_tone` | Apache-2.0 | [material](https://crates.io/crates/pictogram-icons-material) |
 | Primer Octicons       | `pictogram::oct`         | `outlined`, `filled`              | MIT        | [oct](https://crates.io/crates/pictogram-icons-oct) |
+| Phosphor              | `pictogram::phosphor`    | `thin`, `light`, `regular`, `bold`, `fill`, `duotone` | MIT | [phosphor](https://crates.io/crates/pictogram-icons-phosphor) |
 | Simple Icons          | `pictogram::simple`      | `regular`                         | CC0-1.0    | [simple](https://crates.io/crates/pictogram-icons-simple) |
 | Tabler                | `pictogram::tabler`      | `outlined`, `filled`              | MIT        | [tabler](https://crates.io/crates/pictogram-icons-tabler) |
 | VSCode Codicons       | `pictogram::vscode`      | `regular`                         | CC BY 4.0  | [vscode](https://crates.io/crates/pictogram-icons-vscode) |

@@ -533,18 +533,20 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 
 [[package]]
 name = "pictogram"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "pictogram-core",
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
  "pictogram-icons-font-awesome",
  "pictogram-icons-hero",
+ "pictogram-icons-iconoir",
  "pictogram-icons-ion",
  "pictogram-icons-lobe",
  "pictogram-icons-lucide",
  "pictogram-icons-material",
  "pictogram-icons-oct",
+ "pictogram-icons-phosphor",
  "pictogram-icons-simple",
  "pictogram-icons-tabler",
  "pictogram-icons-vscode",
@@ -594,6 +596,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pictogram-icons-iconoir"
+version = "0.4.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
 name = "pictogram-icons-ion"
 version = "0.4.0"
 dependencies = [
@@ -623,6 +632,13 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-oct"
+version = "0.4.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-phosphor"
 version = "0.4.0"
 dependencies = [
  "pictogram-core",

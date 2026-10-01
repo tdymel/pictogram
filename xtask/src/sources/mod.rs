@@ -9,11 +9,13 @@ mod bootstrap;
 mod feather;
 mod font_awesome;
 mod hero;
+mod iconoir;
 mod ion;
 mod lobe;
 mod lucide;
 mod material;
 mod oct;
+mod phosphor;
 mod simple;
 mod tabler;
 mod vscode;
@@ -80,11 +82,13 @@ pub const ALL: &[&Source] = &[
     &feather::SOURCE,
     &font_awesome::SOURCE,
     &hero::SOURCE,
+    &iconoir::SOURCE,
     &ion::SOURCE,
     &lobe::SOURCE,
     &lucide::SOURCE,
     &material::SOURCE,
     &oct::SOURCE,
+    &phosphor::SOURCE,
     &simple::SOURCE,
     &tabler::SOURCE,
     &vscode::SOURCE,
