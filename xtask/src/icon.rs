@@ -60,7 +60,17 @@ pub fn drop_root_style(label: &str, src: &str) -> Result<String, String> {
     Ok(format!("{}{}", &src[..start], &src[range.end..]))
 }
 
+/// The `<title>` elements, with their content. Some upstream icons carry one (the name of the icon),
+/// which would show up as a tooltip and is not wanted in the data of every renderer.
+fn title_ranges(doc: &roxmltree::Document) -> Vec<Range<usize>> {
+    doc.descendants()
+        .filter(|n| n.is_element() && n.tag_name().name() == "title")
+        .map(|n| n.range())
+        .collect()
+}
+
 /// `recolor` replaces hard coded colors by `currentColor`, so monochrome icons follow the text color.
+/// Titles are always removed.
 pub fn parse(
     label: &str,
     src: &str,
@@ -72,17 +82,24 @@ pub fn parse(
         return Err(format!("{label}: the root element is not <svg>"));
     }
 
-    let edits = color_edits(&doc);
-    let mut src = src.to_owned();
-    if recolor {
-        // Back to front, so the ranges stay valid
-        for (range, replacement) in edits.into_iter().rev() {
-            src.replace_range(range, &replacement);
-        }
-    } else if !edits.is_empty() {
+    let colors = color_edits(&doc);
+    if !recolor && !colors.is_empty() {
         warnings.push(format!(
             "`{label}` hard codes a color; it will not follow the text color"
         ));
+    }
+    let mut edits: Vec<_> = title_ranges(&doc)
+        .into_iter()
+        .map(|range| (range, String::new()))
+        .collect();
+    if recolor {
+        edits.extend(colors);
+    }
+    edits.sort_by_key(|(range, _)| range.start);
+    let mut src = src.to_owned();
+    // Back to front, so the ranges stay valid
+    for (range, replacement) in edits.into_iter().rev() {
+        src.replace_range(range, &replacement);
     }
 
     // The very same parser that is used for custom icons.
@@ -275,6 +292,18 @@ mod tests {
             "<path fill=\"currentColor\" stroke=\"currentColor\"/><path style=\"fill:none;stroke:currentColor;stroke-width:32px\"/><path fill=\"url(#a)\"/>"
         );
         assert!(warnings.is_empty());
+    }
+
+    #[test]
+    fn removes_titles() {
+        let src = "<svg viewBox=\"0 0 1 1\"><title>a</title><path d=\"M1\"/><g><title>b &amp; c</title><path fill=\"red\"/></g></svg>";
+        let icon = parse("a", src, true, &mut vec![]).unwrap();
+        assert_eq!(
+            icon.body,
+            "<path d=\"M1\"/><g><path fill=\"currentColor\"/></g>"
+        );
+        let icon = parse_plain(src).unwrap();
+        assert_eq!(icon.body, "<path d=\"M1\"/><g><path fill=\"red\"/></g>");
     }
 
     #[test]
