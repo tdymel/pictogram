@@ -1,6 +1,6 @@
 #![doc = include_str!("../README.md")]
 
-pub use pictogram_core::{Svg, XMLNS};
+pub use pictogram_core::{Icon, Library, Svg, XMLNS};
 
 /// Icons from lucide. Every icon is a `const` [`Svg`]: `pictogram::lucide::house::outlined`.
 #[cfg(feature = "lucide")]
@@ -57,3 +57,57 @@ pub use pictogram_icons_vscode as vscode;
 /// Icons from Material Design Icons. Every icon is a `const` [`Svg`]: `pictogram::material::<icon>::<variant>`.
 #[cfg(feature = "material")]
 pub use pictogram_icons_material as material;
+
+/// The enabled icon libraries with all of their icons, to list and search them.
+///
+/// Needs the `index` feature. A library is in it if its own feature is enabled.
+#[cfg(feature = "index")]
+pub static LIBRARIES: &[&Library] = &[
+    #[cfg(feature = "bootstrap")]
+    &bootstrap::LIBRARY,
+    #[cfg(feature = "feather")]
+    &feather::LIBRARY,
+    #[cfg(feature = "font-awesome")]
+    &font_awesome::LIBRARY,
+    #[cfg(feature = "hero")]
+    &hero::LIBRARY,
+    #[cfg(feature = "iconoir")]
+    &iconoir::LIBRARY,
+    #[cfg(feature = "ion")]
+    &ion::LIBRARY,
+    #[cfg(feature = "lobe")]
+    &lobe::LIBRARY,
+    #[cfg(feature = "lucide")]
+    &lucide::LIBRARY,
+    #[cfg(feature = "material")]
+    &material::LIBRARY,
+    #[cfg(feature = "oct")]
+    &oct::LIBRARY,
+    #[cfg(feature = "phosphor")]
+    &phosphor::LIBRARY,
+    #[cfg(feature = "simple")]
+    &simple::LIBRARY,
+    #[cfg(feature = "tabler")]
+    &tabler::LIBRARY,
+    #[cfg(feature = "vscode")]
+    &vscode::LIBRARY,
+];
+
+/// The enabled library with this name (`lucide`, `font-awesome`, ...).
+#[cfg(feature = "index")]
+pub fn library(name: &str) -> Option<&'static Library> {
+    LIBRARIES
+        .iter()
+        .copied()
+        .find(|library| library.name == name)
+}
+
+/// The icons of all enabled libraries matching a query, see [`Icon::matches`].
+#[cfg(feature = "index")]
+pub fn search<'a>(query: &'a str) -> impl Iterator<Item = (&'static Library, &'static Icon)> + 'a {
+    LIBRARIES.iter().copied().flat_map(move |library| {
+        (library.icons.iter())
+            .filter(move |icon| icon.matches(query))
+            .map(move |icon| (library, icon))
+    })
+}

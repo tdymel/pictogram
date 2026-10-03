@@ -7,6 +7,8 @@ use super::{Raw, Source};
 
 pub const SOURCE: Source = Source {
     name: "material",
+    title: "Material Design Icons",
+    license: "Apache-2.0",
     crate_dir: "pictogram-icons-material",
     repo: "https://github.com/google/material-design-icons",
     // The repository is huge: only the 24px (and the rare 20px) svgs are needed

@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "font-awesome",
+    title: "Font Awesome",
+    license: "CC-BY-4.0",
     crate_dir: "pictogram-icons-font-awesome",
     repo: "https://github.com/FortAwesome/Font-Awesome",
     sparse: &["/svgs/"],

@@ -36,6 +36,33 @@ Your own icons are parsed by the compiler:
 const CUSTOM: pictogram::Svg = pictogram::Svg::new(include_str!("custom.svg"));
 ```
 
+### Listing and searching icons
+Icons are addressed by path, which cannot be enumerated. To show or search all of them (an icon browser, a picker), enable the `index` feature:
+
+```toml
+pictogram = { version = "0.4", features = ["index"] }
+```
+
+```rust,ignore
+// The enabled libraries, with their variants and all of their icons
+for library in pictogram::LIBRARIES {
+    println!("{} ({}): {:?}", library.title, library.license, library.variants);
+    for icon in library.icons {
+        // icon.name: "arrow-up", icon.module: "arrow_up", icon.variant: "outlined", icon.svg: Svg
+    }
+}
+
+// Search one library or all enabled ones. The words of a query can be in any order.
+let lucide = pictogram::library("lucide").unwrap();
+let hits = lucide.search("arrow up");
+let hits = pictogram::search("arrow up"); // (&Library, &Icon)
+
+// The index holds the same constants you get by path
+assert_eq!(lucide.get("arrow-up", "outlined").unwrap().svg, pictogram::lucide::arrow_up::outlined);
+```
+Without the feature nothing of it is compiled. Deprecated aliases of renamed icons are not listed.
+Each icon crate has the same as `LIBRARY` with its own `index` feature.
+
 ### Dioxus adapter
 ```rust,ignore
 use pictogram_dioxus::Pictogram;

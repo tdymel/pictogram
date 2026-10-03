@@ -49,6 +49,7 @@ pub fn run(
 
     let mut warnings = Vec::new();
     let mut modules: BTreeMap<String, Module> = BTreeMap::new();
+    let mut names: BTreeMap<String, String> = BTreeMap::new();
     let mut alias_sources: Vec<(String, Vec<String>)> = Vec::new();
     for raw in raws {
         let label = format!("{}-{}", raw.name, raw.variant);
@@ -66,6 +67,7 @@ pub fn run(
         let parsed = icon::parse(&label, &src, source.recolor, icon_warnings)?;
         let module = icon::ident(&raw.name).map_err(|e| format!("{label}: {e}"))?;
         let variant = icon::ident(&raw.variant).map_err(|e| format!("{label}: {e}"))?;
+        names.insert(module.clone(), raw.name.clone());
         if !raw.aliases.is_empty() {
             alias_sources.push((module.clone(), raw.aliases));
         }
@@ -82,7 +84,7 @@ pub fn run(
     }
     let aliases = resolve_aliases(&modules, alias_sources, &mut warnings);
 
-    let code = emit(source, version, &modules, &aliases);
+    let code = emit(source, version, &modules, &names, &aliases);
     let lib_changed = fs::read_to_string(&lib_path).map_or(true, |old| old != code);
     let current: BTreeSet<_> = modules.keys().chain(aliases.keys()).cloned().collect();
     let removed = previous_icons.difference(&current).count();
@@ -196,6 +198,7 @@ fn emit(
     source: &Source,
     version: &str,
     modules: &BTreeMap<String, Module>,
+    names: &BTreeMap<String, String>,
     aliases: &BTreeMap<String, String>,
 ) -> String {
     let mut out = String::with_capacity(modules.len() * 700);
@@ -207,9 +210,9 @@ fn emit(
     out.push_str("#![doc = include_str!(\"../README.md\")]\n#![no_std]\n#![allow(non_upper_case_globals)]\n#![cfg_attr(rustfmt, rustfmt::skip)]\n");
 
     // Icons and aliases in one alphabetical list.
-    let mut names: Vec<&String> = modules.keys().chain(aliases.keys()).collect();
-    names.sort();
-    for name in names {
+    let mut all: Vec<&String> = modules.keys().chain(aliases.keys()).collect();
+    all.sort();
+    for name in all {
         if let Some(variants) = modules.get(name) {
             let _ = write!(out, "\npub mod {name} {{\n");
             for (variant, icon) in variants {
@@ -230,7 +233,59 @@ fn emit(
             );
         }
     }
+    emit_index(&mut out, source, version, modules, names);
     out
+}
+
+/// The `LIBRARY` with every icon, behind the `index` feature.
+fn emit_index(
+    out: &mut String,
+    source: &Source,
+    version: &str,
+    modules: &BTreeMap<String, Module>,
+    names: &BTreeMap<String, String>,
+) {
+    let variants: BTreeSet<&str> = modules
+        .values()
+        .flat_map(BTreeMap::keys)
+        .map(|v| plain(v))
+        .collect();
+    let variants: Vec<String> = variants.iter().map(|v| format!("{v:?}")).collect();
+    out.push_str("\n/// Every icon of the library, to list and search them.\n");
+    out.push_str("#[cfg(feature = \"index\")]\n");
+    out.push_str("pub static LIBRARY: ::pictogram_core::Library = ::pictogram_core::Library {\n");
+    let _ = write!(
+        out,
+        "    name: {:?},\n    title: {:?},\n    license: {:?},\n    repository: {:?},\n    upstream_version: {:?},\n    variants: &[{}],\n    icons: &[\n",
+        source.name,
+        source.title,
+        source.license,
+        source.repo,
+        version,
+        variants.join(", ")
+    );
+    // By the name as people know it (`arrow-up`), not by the identifier (`arrow_up`).
+    let mut entries: Vec<_> = modules
+        .iter()
+        .flat_map(|(module, variants)| {
+            variants
+                .keys()
+                .map(move |variant| (names[module].as_str(), plain(variant), module, variant))
+        })
+        .collect();
+    entries.sort();
+    for (name, plain_variant, module, variant) in entries {
+        let _ = writeln!(
+            out,
+            "        ::pictogram_core::Icon {{ name: {name:?}, module: {module:?}, variant: {plain_variant:?}, svg: {module}::{variant} }},",
+        );
+    }
+    out.push_str("    ],\n};\n");
+}
+
+/// An identifier as plain text: without the `r#` of a keyword.
+fn plain(ident: &str) -> &str {
+    ident.strip_prefix("r#").unwrap_or(ident)
 }
 
 /// The module names of a previously generated `lib.rs`.

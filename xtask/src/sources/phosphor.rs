@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "phosphor",
+    title: "Phosphor",
+    license: "MIT",
     crate_dir: "pictogram-icons-phosphor",
     repo: "https://github.com/phosphor-icons/core",
     sparse: &["/raw/"],

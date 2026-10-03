@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "ion",
+    title: "Ionicons",
+    license: "MIT",
     crate_dir: "pictogram-icons-ion",
     repo: "https://github.com/ionic-team/ionicons",
     sparse: &["/src/svg/"],

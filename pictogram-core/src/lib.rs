@@ -3,6 +3,9 @@
 
 use core::fmt;
 
+mod index;
+pub use index::{Icon, Library};
+
 /// The namespace of every svg element.
 pub const XMLNS: &str = "http://www.w3.org/2000/svg";
 

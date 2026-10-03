@@ -533,7 +533,7 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 
 [[package]]
 name = "pictogram"
-version = "0.4.3"
+version = "0.4.4"
 dependencies = [
  "pictogram-core",
  "pictogram-icons-bootstrap",
@@ -554,7 +554,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram-core"
-version = "0.4.0"
+version = "0.4.1"
 
 [[package]]
 name = "pictogram-dioxus"
@@ -569,98 +569,98 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-bootstrap"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-feather"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-font-awesome"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-hero"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-iconoir"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-ion"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-lobe"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-lucide"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-material"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-oct"
-version = "0.4.0"
-dependencies = [
- "pictogram-core",
-]
-
-[[package]]
-name = "pictogram-icons-phosphor"
-version = "0.4.0"
-dependencies = [
- "pictogram-core",
-]
-
-[[package]]
-name = "pictogram-icons-simple"
 version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
+name = "pictogram-icons-phosphor"
+version = "0.4.1"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-simple"
+version = "0.4.2"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
 name = "pictogram-icons-tabler"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-vscode"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "pictogram-core",
 ]

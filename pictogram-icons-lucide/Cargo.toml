@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-lucide"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -13,7 +13,11 @@ categories = ["gui", "web-programming", "accessibility", "wasm"]
 exclude = ["scraper"]
 
 [dependencies]
-pictogram-core = { path = "../pictogram-core", version = "0.4.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.4.1" }
+
+[features]
+# `LIBRARY`: the index of all icons, to list and search them.
+index = []
 
 # Read and written by `cargo xtask lucide`, which the update workflow runs.
 [package.metadata.pictogram]

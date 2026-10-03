@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-ion"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -12,7 +12,11 @@ keywords = ["icons", "svg", "dioxus", "leptos", "ionicons"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 
 [dependencies]
-pictogram-core = { path = "../pictogram-core", version = "0.4.0" }
+pictogram-core = { path = "../pictogram-core", version = "0.4.1" }
+
+[features]
+# `LIBRARY`: the index of all icons, to list and search them.
+index = []
 
 # Read and written by `cargo xtask update ion`.
 [package.metadata.pictogram]

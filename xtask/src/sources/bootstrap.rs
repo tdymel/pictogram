@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "bootstrap",
+    title: "Bootstrap Icons",
+    license: "MIT",
     crate_dir: "pictogram-icons-bootstrap",
     repo: "https://github.com/twbs/icons",
     sparse: &["/icons/"],

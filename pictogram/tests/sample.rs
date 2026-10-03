@@ -41,3 +41,77 @@ fn every_library_is_available() {
         assert!(!icon.body.is_empty());
     }
 }
+
+#[cfg(feature = "index")]
+mod index {
+    #[test]
+    fn libraries_list_their_variants() {
+        let names: Vec<_> = pictogram::LIBRARIES.iter().map(|l| l.name).collect();
+        assert_eq!(names.len(), 14);
+        assert!(names.contains(&"font-awesome"));
+
+        let phosphor = pictogram::library("phosphor").unwrap();
+        assert_eq!(
+            phosphor.variants,
+            ["bold", "duotone", "fill", "light", "regular", "thin"]
+        );
+        assert_eq!(phosphor.license, "MIT");
+        assert!(pictogram::library("nope").is_none());
+    }
+
+    /// The index holds the very constants, addressed by their path.
+    #[test]
+    fn the_index_is_the_catalogue() {
+        let lucide = pictogram::library("lucide").unwrap();
+        let icon = lucide.get("arrow-up", "outlined").unwrap();
+        assert_eq!(icon.module, "arrow_up");
+        assert_eq!(icon.svg, pictogram::lucide::arrow_up::outlined);
+
+        // keywords and leading digits keep their raw identifier
+        let boxed = lucide.get("box", "outlined").unwrap();
+        assert_eq!(boxed.module, "r#box");
+        assert_eq!(boxed.svg, pictogram::lucide::r#box::outlined);
+    }
+
+    #[test]
+    fn deprecated_aliases_are_not_listed() {
+        let lucide = pictogram::library("lucide").unwrap();
+        let mut seen = std::collections::HashSet::new();
+        assert!(
+            lucide
+                .icons
+                .iter()
+                .all(|i| seen.insert((i.name, i.variant)))
+        );
+    }
+
+    #[test]
+    fn search_across_libraries() {
+        let hits: Vec<_> = pictogram::search("arrow up").collect();
+        assert!(
+            hits.iter()
+                .any(|(l, i)| l.name == "lucide" && i.name == "arrow-up")
+        );
+        assert!(hits.iter().any(|(l, _)| l.name == "tabler"));
+        assert_eq!(pictogram::search("no such icon name").count(), 0);
+    }
+
+    #[test]
+    fn every_icon_has_a_known_variant() {
+        for library in pictogram::LIBRARIES {
+            assert!(!library.icons.is_empty(), "{}", library.name);
+            assert!(
+                library
+                    .icons
+                    .iter()
+                    .all(|i| library.variants.contains(&i.variant))
+            );
+            assert!(
+                library
+                    .icons
+                    .windows(2)
+                    .all(|w| (w[0].name, w[0].variant) < (w[1].name, w[1].variant))
+            );
+        }
+    }
+}

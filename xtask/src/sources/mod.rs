@@ -24,6 +24,10 @@ mod vscode;
 pub struct Source {
     /// The name on the command line, e.g. `lucide`.
     pub name: &'static str,
+    /// The name of the project, e.g. `Font Awesome`.
+    pub title: &'static str,
+    /// The license of the icons as an SPDX identifier.
+    pub license: &'static str,
     /// The directory of the crate in the workspace.
     pub crate_dir: &'static str,
     /// The git repository of the upstream project.

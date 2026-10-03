@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "iconoir",
+    title: "Iconoir",
+    license: "MIT",
     crate_dir: "pictogram-icons-iconoir",
     repo: "https://github.com/iconoir-icons/iconoir",
     sparse: &["/icons/"],

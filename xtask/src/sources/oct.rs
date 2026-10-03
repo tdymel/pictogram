@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "oct",
+    title: "Primer Octicons",
+    license: "MIT",
     crate_dir: "pictogram-icons-oct",
     repo: "https://github.com/primer/octicons",
     sparse: &["/icons/"],

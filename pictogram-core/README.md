@@ -21,3 +21,7 @@ assert_eq!(CIRCLE.attributes().count(), 2); // fill, stroke
 * `body`: everything inside the root element.
 
 `Svg::new` runs at compile time when used in a `const`, so nothing is parsed at runtime.
+
+## Index
+`Icon` (an `Svg` with its `name`, `module` and `variant`) and `Library` (a name, license, upstream version, its `variants` and all of its `icons`) describe a library as data, with `Library::search`, `Library::variant` and `Library::get`.
+The icon crates generate one as `LIBRARY` behind their `index` feature, see [pictogram](https://crates.io/crates/pictogram).

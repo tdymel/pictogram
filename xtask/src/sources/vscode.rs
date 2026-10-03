@@ -4,6 +4,8 @@ use super::{Raw, Source, svgs};
 
 pub const SOURCE: Source = Source {
     name: "vscode",
+    title: "VSCode Codicons",
+    license: "CC-BY-4.0",
     crate_dir: "pictogram-icons-vscode",
     repo: "https://github.com/microsoft/vscode-codicons",
     sparse: &["/src/icons/"],
