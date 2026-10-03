@@ -18,7 +18,7 @@ const HOME: pictogram::Svg = pictogram::lucide::house::outlined;
 ## How to use it
 ```toml
 [dependencies]
-pictogram = "0.4"
+pictogram = "0.5"
 ```
 
 ```rust,ignore
@@ -40,7 +40,7 @@ const CUSTOM: pictogram::Svg = pictogram::Svg::new(include_str!("custom.svg"));
 Icons are addressed by path, which cannot be enumerated. To show or search all of them (an icon browser, a picker), enable the `index` feature:
 
 ```toml
-pictogram = { version = "0.4", features = ["index"] }
+pictogram = { version = "0.5", features = ["index"] }
 ```
 
 ```rust,ignore

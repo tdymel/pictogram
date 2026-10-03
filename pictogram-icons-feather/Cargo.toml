@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-feather"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -12,7 +12,7 @@ keywords = ["icons", "svg", "dioxus", "leptos", "feather"]
 categories = ["gui", "web-programming", "accessibility", "wasm"]
 
 [dependencies]
-pictogram-core = { path = "../pictogram-core", version = "0.4.1" }
+pictogram-core = { path = "../pictogram-core", version = "0.5.0" }
 
 [features]
 # `LIBRARY`: the index of all icons, to list and search them.
