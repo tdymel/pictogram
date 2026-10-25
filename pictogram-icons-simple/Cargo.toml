@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-simple"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -21,4 +21,4 @@ index = []
 # Read and written by `cargo xtask update simple`.
 [package.metadata.pictogram]
 upstream = "https://github.com/simple-icons/simple-icons"
-upstream-version = "16.33.0"
+upstream-version = "16.35.0"
