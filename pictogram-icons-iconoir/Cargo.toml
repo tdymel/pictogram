@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-iconoir"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"

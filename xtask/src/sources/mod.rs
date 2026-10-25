@@ -58,12 +58,20 @@ impl Raw {
             path,
             aliases: Vec::new(),
             colored: false,
+            recolor: false,
         }
     }
 
     /// The icon has its own colors by design, so hard coded colors are no reason to warn.
     pub fn colored(mut self) -> Raw {
         self.colored = true;
+        self
+    }
+
+    /// A monochrome icon of a library whose other icons keep their colors: its hard coded colors
+    /// are replaced by `currentColor`, like [`Source::recolor`] does for a whole library.
+    pub fn recolored(mut self) -> Raw {
+        self.recolor = true;
         self
     }
 }
@@ -79,6 +87,8 @@ pub struct Raw {
     pub aliases: Vec<String>,
     /// A multi color icon: its hard coded colors are intended and not warned about.
     pub colored: bool,
+    /// Replace the hard coded colors of this icon by `currentColor`.
+    pub recolor: bool,
 }
 
 pub const ALL: &[&Source] = &[

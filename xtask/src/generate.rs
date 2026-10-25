@@ -64,7 +64,9 @@ pub fn run(
         } else {
             &mut warnings
         };
-        let parsed = icon::parse(&label, &src, source.recolor, icon_warnings)?;
+        let recolor = source.recolor || raw.recolor;
+        let id_prefix = format!("{}-{label}-", source.name);
+        let parsed = icon::parse(&label, &src, recolor, &id_prefix, icon_warnings)?;
         let module = icon::ident(&raw.name).map_err(|e| format!("{label}: {e}"))?;
         let variant = icon::ident(&raw.variant).map_err(|e| format!("{label}: {e}"))?;
         names.insert(module.clone(), raw.name.clone());

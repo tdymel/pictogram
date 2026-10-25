@@ -70,13 +70,15 @@ fn title_ranges(doc: &roxmltree::Document) -> Vec<Range<usize>> {
 }
 
 /// `recolor` replaces hard coded colors by `currentColor`, so monochrome icons follow the text color.
-/// Titles are always removed.
+/// Titles are always removed, and the ids of elements get `id_prefix` (see [`scope_ids`]).
 pub fn parse(
     label: &str,
     src: &str,
     recolor: bool,
+    id_prefix: &str,
     warnings: &mut Vec<String>,
 ) -> Result<Parsed, String> {
+    let src = &scope_ids(label, src, id_prefix)?;
     let doc = roxmltree::Document::parse(src).map_err(|e| format!("{label}: invalid xml: {e}"))?;
     if doc.root_element().tag_name().name() != "svg" {
         return Err(format!("{label}: the root element is not <svg>"));
@@ -107,8 +109,10 @@ pub fn parse(
     let svg = std::panic::catch_unwind(|| Svg::new(src))
         .map_err(|_| format!("{label}: could not be parsed (is there a viewBox?)"))?;
 
+    // An id on the root would be duplicated by every use of the icon.
     let attrs = svg
         .attributes()
+        .filter(|(name, _)| *name != "id")
         .map(|(name, value)| format!("{name}=\"{}\"", value.replace('"', "&quot;")))
         .collect::<Vec<_>>()
         .join(" ");
@@ -117,6 +121,64 @@ pub fn parse(
         attrs,
         body: minify(svg.body),
     })
+}
+
+/// Puts `prefix` in front of every id below the root, and of the references to them
+/// (`url(#a)`, `href="#a"`).
+///
+/// Icons are inlined into one document, where ids are global: two icons that both define a
+/// gradient `a` would draw each other's. Upstream ids are only unique within one file, often not
+/// even across the variants of an icon (`1x1/de.svg` and `4x3/de.svg`).
+pub fn scope_ids(label: &str, src: &str, prefix: &str) -> Result<String, String> {
+    let doc = roxmltree::Document::parse(src).map_err(|e| format!("{label}: invalid xml: {e}"))?;
+    let root = doc.root_element();
+    let ids: Vec<&str> = doc
+        .descendants()
+        .filter(|n| n.is_element() && *n != root)
+        .filter_map(|n| n.attribute("id"))
+        .collect();
+    if ids.is_empty() {
+        return Ok(src.to_owned());
+    }
+    let mut edits = Vec::new();
+    for node in doc.descendants().filter(|n| n.is_element()) {
+        for attribute in node.attributes() {
+            let value = attribute.value();
+            let new = if attribute.name() == "id" && node != root {
+                format!("{prefix}{value}")
+            } else if attribute.name() == "href" {
+                match value.strip_prefix('#') {
+                    Some(id) if ids.contains(&id) => format!("#{prefix}{id}"),
+                    _ => continue,
+                }
+            } else if value.contains("url(#") {
+                let mut new = value.to_owned();
+                for id in &ids {
+                    new = new.replace(&format!("url(#{id})"), &format!("url(#{prefix}{id})"));
+                }
+                new
+            } else {
+                continue;
+            };
+            if new != value {
+                edits.push((attribute.range_value(), new));
+            }
+        }
+    }
+    if doc
+        .descendants()
+        .any(|n| n.is_element() && n.tag_name().name() == "style")
+    {
+        return Err(format!(
+            "{label}: has ids and a <style> element, which may refer to them"
+        ));
+    }
+    edits.sort_by_key(|(range, _): &(Range<usize>, String)| range.start);
+    let mut out = src.to_owned();
+    for (range, replacement) in edits.into_iter().rev() {
+        out.replace_range(range, &replacement);
+    }
+    Ok(out)
 }
 
 const COLOR_PROPERTIES: &[&str] = &[
@@ -214,7 +276,7 @@ mod tests {
     use super::*;
 
     fn parse_plain(src: &str) -> Result<Parsed, String> {
-        parse("test", src, false, &mut vec![])
+        parse("test", src, false, "p-", &mut vec![])
     }
 
     #[test]
@@ -276,6 +338,7 @@ mod tests {
             "a",
             "<svg viewBox=\"0 0 1 1\"><path fill=\"#000\"/></svg>",
             false,
+            "p-",
             &mut warnings,
         )
         .unwrap();
@@ -286,7 +349,7 @@ mod tests {
     fn recolors_attributes_and_styles() {
         let src = "<svg viewBox=\"0 0 1 1\" fill=\"none\"><path fill=\"#0F172A\" stroke=\"black\"/><path style=\"fill:none;stroke:#000;stroke-width:32px\"/><path fill=\"url(#a)\"/></svg>";
         let mut warnings = vec![];
-        let icon = parse("a", src, true, &mut warnings).unwrap();
+        let icon = parse("a", src, true, "p-", &mut warnings).unwrap();
         assert_eq!(
             icon.body,
             "<path fill=\"currentColor\" stroke=\"currentColor\"/><path style=\"fill:none;stroke:currentColor;stroke-width:32px\"/><path fill=\"url(#a)\"/>"
@@ -297,13 +360,25 @@ mod tests {
     #[test]
     fn removes_titles() {
         let src = "<svg viewBox=\"0 0 1 1\"><title>a</title><path d=\"M1\"/><g><title>b &amp; c</title><path fill=\"red\"/></g></svg>";
-        let icon = parse("a", src, true, &mut vec![]).unwrap();
+        let icon = parse("a", src, true, "p-", &mut vec![]).unwrap();
         assert_eq!(
             icon.body,
             "<path d=\"M1\"/><g><path fill=\"currentColor\"/></g>"
         );
         let icon = parse_plain(src).unwrap();
         assert_eq!(icon.body, "<path d=\"M1\"/><g><path fill=\"red\"/></g>");
+    }
+
+    #[test]
+    fn scopes_ids_and_their_references() {
+        let src = "<svg id=\"root\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"0 0 1 1\"><defs><linearGradient id=\"a\"/><clipPath id=\"b\"><rect/></clipPath></defs><path fill=\"url(#a)\" clip-path=\"url(#b)\" style=\"stroke:url(#a)\"/><use href=\"#b\" xlink:href=\"#a\"/><use href=\"#other\"/></svg>";
+        let icon = parse_plain(src).unwrap();
+        assert_eq!(
+            icon.body,
+            "<defs><linearGradient id=\"p-a\"/><clipPath id=\"p-b\"><rect/></clipPath></defs><path fill=\"url(#p-a)\" clip-path=\"url(#p-b)\" style=\"stroke:url(#p-a)\"/><use href=\"#p-b\" xlink:href=\"#p-a\"/><use href=\"#other\"/>"
+        );
+        // The id of the root is dropped
+        assert_eq!(icon.attrs, "");
     }
 
     #[test]

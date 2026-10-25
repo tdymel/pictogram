@@ -597,14 +597,14 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-iconoir"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-ion"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]

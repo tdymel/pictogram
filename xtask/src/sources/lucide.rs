@@ -28,6 +28,7 @@ fn collect(root: &Path) -> Result<Vec<Raw>, String> {
             variant: "outlined".to_owned(),
             path,
             colored: false,
+            recolor: false,
         })
         .collect())
 }
