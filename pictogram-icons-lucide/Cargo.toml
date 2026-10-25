@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-lucide"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -22,4 +22,4 @@ index = []
 # Read and written by `cargo xtask lucide`, which the update workflow runs.
 [package.metadata.pictogram]
 upstream = "https://github.com/lucide-icons/lucide"
-upstream-version = "1.49.0"
+upstream-version = "1.61.0"
