@@ -15,7 +15,7 @@ Usage:
 
 update     fetches a release of the upstream repository (the latest one by default)
            and regenerates the icon crate of the library.
-           Projects that do not tag releases (material) are used at the tip of their default
+           Projects that do not tag releases (material, fluent-emoji) are used at the tip of their default
            branch, and the commit is the version.
 generate   does the same from a checkout you already have, without network access.
 

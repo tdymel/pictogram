@@ -20,9 +20,11 @@ fn custom_icon() {
 /// Every library is reachable through the facade.
 #[test]
 fn every_library_is_available() {
-    let icons: [Svg; 14] = [
+    let icons: [Svg; 16] = [
         pictogram::bootstrap::house::outlined,
         pictogram::feather::heart::outlined,
+        pictogram::flag::de::landscape,
+        pictogram::fluent_emoji::thumbs_up::flat,
         pictogram::font_awesome::house::solid,
         pictogram::hero::bell::outlined,
         pictogram::iconoir::home::regular,
@@ -47,7 +49,7 @@ mod index {
     #[test]
     fn libraries_list_their_variants() {
         let names: Vec<_> = pictogram::LIBRARIES.iter().map(|l| l.name).collect();
-        assert_eq!(names.len(), 14);
+        assert_eq!(names.len(), 16);
         assert!(names.contains(&"font-awesome"));
 
         let phosphor = pictogram::library("phosphor").unwrap();

@@ -14,6 +14,14 @@ pub use pictogram_icons_bootstrap as bootstrap;
 #[cfg(feature = "feather")]
 pub use pictogram_icons_feather as feather;
 
+/// Flags from Flag Icons. Every flag is a `const` [`Svg`]: `pictogram::flag::<country code>::<variant>`.
+#[cfg(feature = "flag")]
+pub use pictogram_icons_flag as flag;
+
+/// Emoji from Fluent Emoji. Every emoji is a `const` [`Svg`]: `pictogram::fluent_emoji::<emoji>::<variant>`.
+#[cfg(feature = "fluent-emoji")]
+pub use pictogram_icons_fluent_emoji as fluent_emoji;
+
 /// Icons from Font Awesome. Every icon is a `const` [`Svg`]: `pictogram::font_awesome::<icon>::<variant>`.
 #[cfg(feature = "font-awesome")]
 pub use pictogram_icons_font_awesome as font_awesome;
@@ -67,6 +75,10 @@ pub static LIBRARIES: &[&Library] = &[
     &bootstrap::LIBRARY,
     #[cfg(feature = "feather")]
     &feather::LIBRARY,
+    #[cfg(feature = "flag")]
+    &flag::LIBRARY,
+    #[cfg(feature = "fluent-emoji")]
+    &fluent_emoji::LIBRARY,
     #[cfg(feature = "font-awesome")]
     &font_awesome::LIBRARY,
     #[cfg(feature = "hero")]

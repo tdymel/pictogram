@@ -1,0 +1,24 @@
+[package]
+name = "pictogram-icons-fluent-emoji"
+version = "0.5.0"
+edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "README.md"
+repository = "https://github.com/tdymel/pictogram"
+documentation = "https://docs.rs/pictogram"
+license = "MIT OR Apache-2.0"
+description = "Fluent Emoji export for pictogram"
+keywords = ["icons", "svg", "dioxus", "leptos", "emoji"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+
+[dependencies]
+pictogram-core = { path = "../pictogram-core", version = "0.5.0" }
+
+[features]
+# `LIBRARY`: the index of all icons, to list and search them.
+index = []
+
+# Read and written by `cargo xtask update fluent-emoji`.
+[package.metadata.pictogram]
+upstream = "https://github.com/microsoft/fluentui-emoji"
+upstream-version = "1ffb34c752ec"

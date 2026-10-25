@@ -1,0 +1,24 @@
+[package]
+name = "pictogram-icons-flag"
+version = "0.5.0"
+edition = "2024"
+authors = ["Tom Dymel <tom@dymel.dev>"]
+readme = "README.md"
+repository = "https://github.com/tdymel/pictogram"
+documentation = "https://docs.rs/pictogram"
+license = "MIT OR Apache-2.0"
+description = "Flag Icons export for pictogram"
+keywords = ["icons", "svg", "dioxus", "leptos", "flag"]
+categories = ["gui", "web-programming", "accessibility", "wasm"]
+
+[dependencies]
+pictogram-core = { path = "../pictogram-core", version = "0.5.0" }
+
+[features]
+# `LIBRARY`: the index of all icons, to list and search them.
+index = []
+
+# Read and written by `cargo xtask update flag`.
+[package.metadata.pictogram]
+upstream = "https://github.com/lipis/flag-icons"
+upstream-version = "7.6.0"

@@ -7,6 +7,8 @@ use std::{
 
 mod bootstrap;
 mod feather;
+mod flag;
+mod fluent_emoji;
 mod font_awesome;
 mod hero;
 mod iconoir;
@@ -94,6 +96,8 @@ pub struct Raw {
 pub const ALL: &[&Source] = &[
     &bootstrap::SOURCE,
     &feather::SOURCE,
+    &flag::SOURCE,
+    &fluent_emoji::SOURCE,
     &font_awesome::SOURCE,
     &hero::SOURCE,
     &iconoir::SOURCE,

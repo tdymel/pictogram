@@ -538,6 +538,8 @@ dependencies = [
  "pictogram-core",
  "pictogram-icons-bootstrap",
  "pictogram-icons-feather",
+ "pictogram-icons-flag",
+ "pictogram-icons-fluent-emoji",
  "pictogram-icons-font-awesome",
  "pictogram-icons-hero",
  "pictogram-icons-iconoir",
@@ -576,6 +578,20 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-feather"
+version = "0.5.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-flag"
+version = "0.5.0"
+dependencies = [
+ "pictogram-core",
+]
+
+[[package]]
+name = "pictogram-icons-fluent-emoji"
 version = "0.5.0"
 dependencies = [
  "pictogram-core",

@@ -6,6 +6,8 @@ members = [
     "pictogram-dioxus",
     "pictogram-icons-bootstrap",
     "pictogram-icons-feather",
+    "pictogram-icons-flag",
+    "pictogram-icons-fluent-emoji",
     "pictogram-icons-font-awesome",
     "pictogram-icons-hero",
     "pictogram-icons-iconoir",
