@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-lobe"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -21,4 +21,4 @@ index = []
 # Read and written by `cargo xtask update lobe`.
 [package.metadata.pictogram]
 upstream = "https://github.com/lobehub/lobe-icons"
-upstream-version = "1.95.1"
+upstream-version = "1.98.0"
