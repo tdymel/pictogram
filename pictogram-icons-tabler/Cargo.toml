@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-tabler"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -21,4 +21,4 @@ index = []
 # Read and written by `cargo xtask update tabler`.
 [package.metadata.pictogram]
 upstream = "https://github.com/tabler/tabler-icons"
-upstream-version = "3.48.0"
+upstream-version = "3.49.0"
