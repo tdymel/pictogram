@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-material"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -21,4 +21,4 @@ index = []
 # Read and written by `cargo xtask update material`.
 [package.metadata.pictogram]
 upstream = "https://github.com/google/material-design-icons"
-upstream-version = "bd8cb85bd4ba"
+upstream-version = "10ecc1479061"
