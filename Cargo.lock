@@ -569,7 +569,7 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-bootstrap"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
@@ -611,21 +611,21 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-lobe"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-lucide"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-material"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
@@ -646,14 +646,14 @@ dependencies = [
 
 [[package]]
 name = "pictogram-icons-simple"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]
 
 [[package]]
 name = "pictogram-icons-tabler"
-version = "0.5.0"
+version = "0.5.1"
 dependencies = [
  "pictogram-core",
 ]

@@ -1,6 +1,6 @@
 [package]
 name = "pictogram-icons-bootstrap"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2024"
 authors = ["Tom Dymel <tom@dymel.dev>"]
 readme = "README.md"
@@ -21,4 +21,4 @@ index = []
 # Read and written by `cargo xtask update bootstrap`.
 [package.metadata.pictogram]
 upstream = "https://github.com/twbs/icons"
-upstream-version = "1.13.1"
+upstream-version = "1.13.2"
